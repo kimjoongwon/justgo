@@ -11,6 +11,9 @@ import updateMessage from '../api/chats/methods';
 import { PostsPage } from './PostsPage';
 import { Posts } from '../api/chats/posts';
 import { PostsList } from '../ui/PostsList';
+import { Meteor } from 'meteor/meteor';
+import { Logs } from '../api/chats/logs';
+import { LogsList } from '../ui/LogsList';
 // import Meteor from 'meteor/meteor'
 
 class App extends Component {
@@ -50,9 +53,17 @@ class App extends Component {
 	render() {
 		const chats = this.props.chats;
 		const posts = this.props.posts;
+		const user = this.props.users;
+		const logs = this.props.logs;
 		let Chats;
 		let Posts;
+		let Logs;
+
+		// console.log(new Date());
+		console.log(user);
+		console.log(logs);
 		Chats = chats.map((chat) => <ChatPage name={chat.name} message={chat.messages} key={shortid.generate()} />);
+		Logs = logs.map((log) =>  <LogsList name={log.name} log={log.log} key={shortid.generate()} />);
 		Posts = posts.map((post) => (
 			<PostsList
 				title={post.title}
@@ -62,9 +73,12 @@ class App extends Component {
 			/>
 		));
 
+		
+
 		return (
 			<div>
 				<LoginPage />
+
 				<JoinPage />
 				<div>{Chats}</div>
 				<div>
@@ -78,8 +92,12 @@ class App extends Component {
 
 					<Button onClick={this.onMessageSubmit}>전달</Button>
 				</div>
-				<PostsPage />
-				{Posts}
+				<div>
+					<PostsPage />
+				</div>
+				<div>{Posts}</div>
+
+				<div>{Logs}</div>
 			</div>
 		);
 	}
@@ -88,7 +106,7 @@ class App extends Component {
 export default withTracker(() => {
 	const loading1 = Meteor.subscribe('chats').ready();
 	const loading2 = Meteor.subscribe('posts').ready();
-	const loading3 = Meteor.subscribe('users').ready();
+	const loading3 = Meteor.subscribe('logs').ready();
 	console.log(loading1);
 	console.log(loading2);
 	console.log(loading3);
@@ -96,6 +114,6 @@ export default withTracker(() => {
 	return {
 		chats: Chats.find({}).fetch(),
 		posts: Posts.find({}).fetch(),
-		users: users
+		logs: Logs.find({}).fetch()
 	};
 })(App);

@@ -2,7 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Chats } from '../chats/chats';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import {Posts} from '../chats/posts'
+import { Posts } from '../chats/posts';
+import { Logs } from './logs';
 
 Meteor.methods({
 	insertchat({ name, messages }) {
@@ -27,6 +28,18 @@ Meteor.methods({
 			title: title,
 			description: description,
 			content: content
+		});
+	},
+
+	insertlog({ name, log }) {
+		new SimpleSchema({
+			name: { type: String },
+			log: { type: String }
+		}).validate({ name, log });
+
+		Logs.insert({
+			name: name,
+			log: log
 		});
 	}
 });
