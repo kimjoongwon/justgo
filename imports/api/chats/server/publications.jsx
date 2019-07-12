@@ -11,8 +11,8 @@ Meteor.publish('posts', function postsfunction() {
 	return Posts.find({});
 });
 
-Meteor.publish('users', function postsfunction() {
-	return this.users
+Meteor.publish('user', function postsfunction() {
+	return this.userId()
 });
 
 Meteor.publish('logs', function logsfunction() {

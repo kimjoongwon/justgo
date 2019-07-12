@@ -9,9 +9,7 @@ export default class LoginPage extends Component {
 			email: '',
 			password: '',
 			errors: {},
-			date: [],
-			log: '',
-			useremail: ''
+		
 		};
 		this.onSubmit = this.onSubmit.bind(this);
 		this.handlePassword = this.handlePassword.bind(this);
@@ -58,8 +56,8 @@ export default class LoginPage extends Component {
 				// const name = ss.toString()
 				console.log(ss);
 				const date = new Date();
-        const log = date.toString();
-        console.log(log)
+				const log = date.toString();
+				console.log(log);
 
 				Meteor.call(
 					'insertlog',
@@ -109,6 +107,7 @@ export default class LoginPage extends Component {
 							<Button color="teal" fluid size="large" onClick={this.onSubmit}>
 								Login
 							</Button>
+
 						</Segment>
 					</Form>
 					<Message>
