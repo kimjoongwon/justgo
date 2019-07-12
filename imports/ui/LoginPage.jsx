@@ -59,7 +59,7 @@ export default class LoginPage extends Component {
         console.log("good");
         console.log(new Date());
         this.setState({ useremail: email });
-        this.setState({ date: new Date() });
+        // this.setState({ date: new Date() });
       } else {
         console.log(err);
       }

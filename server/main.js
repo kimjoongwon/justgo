@@ -1,31 +1,7 @@
-import { Meteor } from 'meteor/meteor';
-import Links from '/imports/api/links';
+import '../imports/startup/server/fixdata';
+import '../imports/api/chats/server/publications'
+import '../imports/api/chats/methods'
 
-function insertLink(title, url) {
-  Links.insert({ title, url, createdAt: new Date() });
-}
 
-Meteor.startup(() => {
-  // If the Links collection is empty, add some data.
-  if (Links.find().count() === 0) {
-    insertLink(
-      'Do the Tutorial',
-      'https://www.meteor.com/tutorials/react/creating-an-app'
-    );
 
-    insertLink(
-      'Follow the Guide',
-      'http://guide.meteor.com'
-    );
-
-    insertLink(
-      'Read the Docs',
-      'https://docs.meteor.com'
-    );
-
-    insertLink(
-      'Discussions',
-      'https://forums.meteor.com'
-    );
-  }
-});
+// 여기에 메소드 안 넣어서 시간 많이 사용함. mothods 는 서버의 함수를 가져와서 커스터마이징하기에 서버 폴더에 import 해줘야함..ㅠ_ㅠ
