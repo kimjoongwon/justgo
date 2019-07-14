@@ -9,9 +9,11 @@ export const Posts = new PostsCollection('Posts');
 //  위아래 합쳐서 Chats = Mongo.Collection('Chats') 도 가능. 근데 메소드 추가하려면 위의 방법
 
 Posts.schema = new SimpleSchema({
+    identity:{type:String},
 	title: {type:String},
     description: { type: String },
-    content:{type:String}
+    content:{type:String},
+    
 });
 // chats 스키마 만들기
 

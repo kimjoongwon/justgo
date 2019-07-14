@@ -1,10 +1,9 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
-import AppContainer from '../imports/containers/AppContainer'
-import 'semantic-ui-css/semantic.min.css'
-import App from '../imports/ui/App'
+import React from "react";
+import { Meteor } from "meteor/meteor";
+import { render } from "react-dom";
+import "semantic-ui-css/semantic.min.css";
+import AppContainer from '../imports/containers/AppContainer';
 
 Meteor.startup(() => {
-  render(<App />, document.getElementById('react-target'));
+  render(<AppContainer />, document.getElementById("react-target"));
 });

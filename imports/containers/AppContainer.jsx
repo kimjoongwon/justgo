@@ -1,18 +1,29 @@
-// import {Meteor} from 'meteor/meteor'
-// import {withTracker} from 'meteor/react-meteor-data'
-// import App from '../ui/App'
+import { withTracker } from "meteor/react-meteor-data";
+import { Chats } from "../api/chats/chats";
+import { Posts } from "../api/chats/posts";
+import { Meteor } from "meteor/meteor";
+import { Logs } from "../api/chats/logs";
+import App from "../ui/App";
 
+const AppContainer = withTracker(() => {
+  const loading1 = Meteor.subscribe("chats").ready();
+  const loading2 = Meteor.subscribe("posts").ready();
+  const loading3 = Meteor.subscribe("logs").ready();
+  const loading4 = Meteor.subscribe("user.profile").ready();
 
+  console.log(loading1);
+  console.log(loading2);
+  console.log(loading3);
+  console.log(loading4);
 
-
-// export const AppContainer = withTracker(()=>{
-//     const ChatHandle = Meteor.subscribe('chats');
-
-
-//     return{
-//         loading :!ChatHandle.ready()
-//         // 어떤 데이터가 들어가야 할까? 로그인 기록을 위한 로그화면
-//         // 
-//     };
-// })(App);
-
+  return {
+    chats: Chats.find({}).fetch(),
+    posts: Posts.find({}).fetch(),
+    logs: Logs.find({}).fetch(),
+    phone: Meteor.users.find({}, { fields: { 'phones': 1 } }).fetch(),
+    user: Meteor.userId(),
+    loading: !(loading1 && loading2 && loading3 && loading4)
+  };
+})(App);
+// ,{fields:{name:1,phone:1}
+export default AppContainer;
