@@ -50,42 +50,18 @@ export default class PostsDetailPage extends Component {
 		);
 	}
 
-	renderEidt() {
+	render() {
 		const { post, loading } = this.props;
 
-		return (
-			<Form>
-				<Form.Field>
-					<Label>제목</Label>
-					<Input placeholder="제목" onChange={this.handleTitle} defaultValue={post[0].title} />
-				</Form.Field>
-				<Form.Field>
-					<Label>설명</Label>
-					<Input placeholder="설명" onChange={this.handleDescription} defaultValue={post[0].description} />
-				</Form.Field>
+		// console.log(post);
 
-				<Form.TextArea
-					onChange={this.handleContent}
-					label="내용"
-					placeholder="내용"
-					defaultValue={post[0].content}
-				/>
+		// console.log(this.props.location);
+		// console.log(this.props);
+		// console.log(this.props.location.pathname);
+		// console.log(this.props.key);
+		// console.log(this.props.match.params.id);
 
-				<Link to="/">
-					<Button type="send" onClick={this.onSubmit}>
-						수정하기
-					</Button>
-				</Link>
-				<Link to="/">
-					<Button type="cancel">취소</Button>
-				</Link>
-			</Form>
-		);
-	}
-
-	renderPostDetail() {
-		const { post, loading } = this.props;
-
+		// return loading ? <Label>로딩중</Label> : <Label>{post[0].content}</Label>;
 		return (
 			<Form>
 				<Form.Field>
@@ -112,22 +88,7 @@ export default class PostsDetailPage extends Component {
 				<Link to="/">
 					<Button type="cancel">취소</Button>
 				</Link>
-
-				<Button type="edit" onClick= {this.renderHandler}>수정하기</Button>
 			</Form>
 		);
-	}
-
-	render() {
-		// console.log(post);
-
-		// console.log(this.props.location);
-		// console.log(this.props);
-		// console.log(this.props.location.pathname);
-		// console.log(this.props.key);
-		// console.log(this.props.match.params.id);
-
-		// return loading ? <Label>로딩중</Label> : <Label>{post[0].content}</Label>;
-		return this.renderPostDetail();
 	}
 }

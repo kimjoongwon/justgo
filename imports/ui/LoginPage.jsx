@@ -71,7 +71,7 @@ export default class LoginPage extends Component {
         Meteor.call(
           "insertlog",
           {
-            name: name,
+            name: name+'님이 로그인',
             log: log
           },
           (err, res) => {

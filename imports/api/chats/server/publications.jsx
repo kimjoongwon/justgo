@@ -20,3 +20,7 @@ Meteor.publish("user.profile", function() {
     fields: { phones: 1 }
   });
 });
+
+Meteor.publish("post.detail", function(id) {
+  return Posts.find({_id:id})
+});

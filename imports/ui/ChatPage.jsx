@@ -19,10 +19,12 @@ export default class ChatPage extends Component {
 		const { name, message } = this.props;
 		console.log(name, message);
 		return (
-			<Label onChange={this.handleMessage}>
-				{name}
-				{message}
-			</Label>
+			<div className="message-container">
+				<Label onChange={this.handleMessage}>
+					{name}
+					{message}
+				</Label>
+			</div>
 		);
 	}
 }
