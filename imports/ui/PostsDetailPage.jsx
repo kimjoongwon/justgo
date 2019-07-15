@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import Posts from '../api/chats/posts';
-import { Label, Form, Button, Input } from 'semantic-ui-react';
+import { Label, Form, Button, Input, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default class PostsDetailPage extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { title: '', descriptions: '', contents: '' };
+		this.state = { title: '', descriptions: '', contents: '', doyouwanttoedit: false };
 		this.onSubmit = this.onSubmit.bind(this);
 		this.handleContent = this.handleContent.bind(this);
 		this.handleDescription = this.handleDescription.bind(this);
 		this.handleTitle = this.handleTitle.bind(this);
+		this.renderHandler = this.renderHandler.bind(this);
 	}
 	handleTitle(event) {
 		this.setState({ title: event.target.value });
@@ -48,6 +49,10 @@ export default class PostsDetailPage extends Component {
 				}
 			}
 		);
+	}
+
+	renderHandler() {
+		this.setState({ doyouwanttoedit: true });
 	}
 
 	renderEidt() {
@@ -88,32 +93,25 @@ export default class PostsDetailPage extends Component {
 
 		return (
 			<Form>
-				<Form.Field>
-					<Label>제목</Label>
-					<Input placeholder="제목" onChange={this.handleTitle} defaultValue={post[0].title} />
-				</Form.Field>
-				<Form.Field>
-					<Label>설명</Label>
-					<Input placeholder="설명" onChange={this.handleDescription} defaultValue={post[0].description} />
-				</Form.Field>
+				<Label>제목</Label>
 
-				<Form.TextArea
-					onChange={this.handleContent}
-					label="내용"
-					placeholder="내용"
-					defaultValue={post[0].content}
-				/>
+				<Container>{post[0].title}</Container>
+
+				<Label>설명</Label>
+
+				<Container>{post[0].description}</Container>
+
+				<Label>내용</Label>
+
+				<Container>{post[0].content}</Container>
 
 				<Link to="/">
-					<Button type="send" onClick={this.onSubmit}>
-						보내기
-					</Button>
-				</Link>
-				<Link to="/">
-					<Button type="cancel">취소</Button>
+					<Button type="cancel">돌아가기</Button>
 				</Link>
 
-				<Button type="edit" onClick= {this.renderHandler}>수정하기</Button>
+				<Button type="edit" onClick={this.renderHandler}>
+					수정하기
+				</Button>
 			</Form>
 		);
 	}
@@ -128,6 +126,6 @@ export default class PostsDetailPage extends Component {
 		// console.log(this.props.match.params.id);
 
 		// return loading ? <Label>로딩중</Label> : <Label>{post[0].content}</Label>;
-		return this.renderPostDetail();
+		return this.state.doyouwanttoedit ? this.renderEidt() : this.renderPostDetail();
 	}
 }
