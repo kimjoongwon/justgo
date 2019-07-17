@@ -15,10 +15,10 @@ import Profile from '../ui/Profile';
 import MessageInput from '../ui/components/MessageInput';
 import PostDetailContainer from '../containers/PostDetailContainer';
 
-
 export default class App extends Component {
 	constructor(props) {
 		super(props);
+		console.log('App +++++++++++++++++++++++++++++++++++++++++++++');
 		this.state = { name: '', message: '', profile: {} };
 		this.onMessageSubmit = this.onMessageSubmit.bind(this);
 		this.handleMessage = this.handleMessage.bind(this);
@@ -117,7 +117,8 @@ export default class App extends Component {
 				<Route path="/signin" component={LoginPage} />
 				<Route path="/join" component={JoinPage} />
 				<Route path="/blogwrite" component={PostsPage} />
-        <Route path="/posts/:id" render={(props) => <PostDetailContainer {...props} />} />
+				{/* <Route path="/posts/:id" render={(props) => <PostDetailContainer {...props} />} /> */}
+				<Route path="/posts/:id" component={PostDetailContainer} />
 				{/* <div className="main-container">
 					<div className="log-container">{Logs}</div>
 					<div className="chat-container">

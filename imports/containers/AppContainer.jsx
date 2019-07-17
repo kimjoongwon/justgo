@@ -5,16 +5,17 @@ import { Meteor } from "meteor/meteor";
 import { Logs } from "../api/chats/logs";
 import App from "../ui/App";
 
-const AppContainer = withTracker(() => {
+const AppContainer = withTracker(() => { 
+  console.log('AppContainer withTracker ----------------------------------------')
   const loading1 = Meteor.subscribe("chats").ready();
   const loading2 = Meteor.subscribe("posts").ready();
   const loading3 = Meteor.subscribe("logs").ready();
   const loading4 = Meteor.subscribe("user.profile").ready();
 
-  console.log(loading1);
-  console.log(loading2);
-  console.log(loading3);
-  console.log(loading4);
+  // console.log(loading1);
+  // console.log(loading2);
+  // console.log(loading3);
+  // console.log(loading4);
 
   return {
     chats: Chats.find({}).fetch(),

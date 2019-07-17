@@ -3,9 +3,11 @@ import { Form, Button } from 'semantic-ui-react';
 import { Posts } from '../api/chats/posts';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
+
 export class PostsPage extends Component {
 	constructor(props) {
 		super(props);
+		console.log('PostsPage constructor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 		this.state = { title: '', descriptions: '', contents: '' };
 		this.onSubmit = this.onSubmit.bind(this);
 		this.handleContent = this.handleContent.bind(this);
@@ -26,10 +28,11 @@ export class PostsPage extends Component {
 	}
 
 	onSubmit(event) {
+		console.log('asdas');
 		const title = this.state.title;
 		const description = this.state.description;
 		const content = this.state.content;
-		const user = this.props.user;
+
 		this.setState({ title: title, description: description, content: content });
 
 		Meteor.call(
@@ -38,7 +41,9 @@ export class PostsPage extends Component {
 				title: title,
 				description: description,
 				content: content,
-				identity: shortid.generate()
+				identity: shortid.generate(),
+				useridwhowrotehtepost: Meteor.userId(),
+				useridwhogaveheart: []
 			},
 			(err, res) => {
 				if (err) {
@@ -54,7 +59,7 @@ export class PostsPage extends Component {
 		return (
 			<Form>
 				<Form.Field>
-					<label>제목</label>
+					<label>제목3</label>
 					<input placeholder="제목" onChange={this.handleTitle} />
 				</Form.Field>
 				<Form.Field>

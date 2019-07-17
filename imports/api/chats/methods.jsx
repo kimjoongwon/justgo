@@ -3,6 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Chats } from '../chats/chats';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Posts } from '../chats/posts';
+
 import { Logs } from './logs';
 import { Accounts } from 'meteor/accounts-base';
 
@@ -18,24 +19,38 @@ Meteor.methods({
 			messages: messages
 		});
 	},
-	insertpost({ title, description, content, identity }) {
+	// insertpost({ title, description, content, identity, useridthatwrote }) {
+	// 	Posts.insert({
+	// 		title: title,
+	// 		description: description,
+	// 		content: content,
+	// 		identity: identity,
+	// 		useridthatwrote: useridthatwrote
+	// 	});
+
+	// 	Meteor.users.update(useridthatwrote, {
+	// 		$set: { profile: { postidthatwrote: [ identity ] } }
+	// 	});
+	// },
+	insertpost({ title, description, content, identity, useridwhowrotehtepost, useridwhogaveheart }) {
 		Posts.insert({
 			title: title,
 			description: description,
 			content: content,
-			identity: identity
+			identity: identity,
+			useridwhowrotehtepost: useridwhowrotehtepost,
+			useridwhogaveheart: useridwhogaveheart
 		});
 
-		const userId = Meteor.userId();
-
-		Meteor.users.update(userId, {
+		Meteor.users.update(useridwhowrotehtepost, {
 			$set: { profile: { postidthatwrote: [ identity ] } }
 		});
 	},
 
 	editpost({ title, description, content, id }) {
+		console.log('editpost method called');
 		Posts.update(
-			{ id },
+			{ _id: id },
 			{
 				$set: {
 					title: title,

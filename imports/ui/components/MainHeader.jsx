@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Button, Label, Menu, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import BlogWriteButton from './BlogWriteButton';
+
 export default class MainHeader extends Component {
 	constructor(props) {
 		super(props);
@@ -20,7 +20,7 @@ export default class MainHeader extends Component {
 			console.log(name);
 			const date = new Date();
 			const log = date.toString();
-
+			
 			Meteor.call(
 				'insertlog',
 				{
