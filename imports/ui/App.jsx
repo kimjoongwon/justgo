@@ -5,23 +5,27 @@ import ChatPage from '../../imports/ui/ChatPage';
 import shortid from 'shortid';
 import { Button, Form, List, Label, Text, Container, Grid } from 'semantic-ui-react';
 import { PostsPage } from './PostsPage';
-import { PostsList } from '../ui/PostsList';
+import { SummaryPostPage } from './SummaryPostPage';
 import { Meteor } from 'meteor/meteor';
 import { LogsList } from '../ui/LogsList';
-import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Link, NavLink, Redirect } from 'react-router-dom';
 import MainHeader from './components/MainHeader';
-import Test from './Test';
 import Profile from '../ui/Profile';
 import MessageInput from '../ui/components/MessageInput';
 import PostDetailContainer from '../containers/PostDetailContainer';
+import { PrivateRoute } from './components/PrivateRoute';
+import ChatMemberListPage from './ChatMemberListPage';
+import PostsDetailPage from './PostsDetailPage';
+import IGaveYouFavoritePostsPage from './IGaveYouFavoritePostsPage';
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
 		console.log('App +++++++++++++++++++++++++++++++++++++++++++++');
-		this.state = { name: '', message: '', profile: {} };
+		this.state = { name: '', message: '', profile: {}, username: '', email: '', phone: '' };
 		this.onMessageSubmit = this.onMessageSubmit.bind(this);
 		this.handleMessage = this.handleMessage.bind(this);
+		this.MemberInfoHandler = this.MemberInfoHandler.bind(this);
 	}
 
 	onMessageSubmit() {
@@ -42,43 +46,27 @@ export default class App extends Component {
 			}
 		);
 	}
+	MemberInfoHandler(e, phone, username, email) {
+		this.setState({ phone: phone, username: username, email: email });
+	}
 
 	handleMessage(e) {
 		const message = e.target.value;
 		this.setState({ message: message });
 	}
-	componentWillUpdate() {}
 
 	render() {
-		const { loading, posts, chats, user, logs, phone } = this.props;
-
-		// console.log(phone);
-		// console.log(Meteor.user());
-		let SS;
+		const { posts, chats, user, logs, phone, users } = this.props;
+		console.log('==================', users);
 		let Chats;
 		let Posts;
 		let Logs;
-		// const phones = Meteor.users.find({ userId: user }, { field: { phones: 1, _id: 0 } }).fetch();
-		// const sss = Meteor.users.find({ userId: userId }).fetch();
-		//     const ss = sss.map(ss => (name = ss.emails[0].address));
-		// SS = phones.map(phone => (<Test phone={phone[0].phones} /> ))
-		// console.log(phoness)
-		// Test = phone.map(phon => <Test phone={phon.phones} />);
-		// console.log(phones)
-		console.log(new Date());
-		console.log(user);
-
+		let ChatMemberList;
 		Chats = chats.map((chat) => <ChatPage name={chat.name} message={chat.messages} key={shortid.generate()} />);
 		Logs = logs.map((log) => <LogsList name={log.name} log={log.log} key={shortid.generate()} />);
-
 		Posts = posts.map((post) => (
-			// <NavLink
-			// to={'posts/${post._id}'}
-			// key={post._id}
-			// >
-			//   </NavLink>
 			<NavLink to={`/posts/${post._id}`} key={post._id} className="post" activeClassName="active">
-				<PostsList
+				<SummaryPostPage
 					title={post.title}
 					description={post.description}
 					content={post.content}
@@ -86,12 +74,11 @@ export default class App extends Component {
 				/>
 			</NavLink>
 		));
-		// {
-		//   /* <PostsPage user={user}/> */
-		// }
-		// {
-		//   /* {Posts} */
-		// }
+
+		ChatMemberList = users.map((user) => (
+			<ChatMemberListPage user={user} MemberInfoHandler={this.MemberInfoHandler} key={shortid.generate()} />
+		));
+
 		return (
 			<BrowserRouter>
 				<MainHeader user={user} phone={phone} />
@@ -101,8 +88,14 @@ export default class App extends Component {
 					render={() => (
 						<div>
 							<div className="main-container">
-								<div className="log-container">{Logs}</div>
-								<Profile />
+								<div className="log-container">
+									<List>{ChatMemberList}</List>
+								</div>
+								<Profile
+									username={this.state.username}
+									email={this.state.email}
+									phone={this.state.phone}
+								/>
 								<div className="chat-container">
 									{Chats}
 									<MessageInput />
@@ -117,20 +110,8 @@ export default class App extends Component {
 				<Route path="/signin" component={LoginPage} />
 				<Route path="/join" component={JoinPage} />
 				<Route path="/blogwrite" component={PostsPage} />
-				{/* <Route path="/posts/:id" render={(props) => <PostDetailContainer {...props} />} /> */}
-				<Route path="/posts/:id" component={PostDetailContainer} />
-				{/* <div className="main-container">
-					<div className="log-container">{Logs}</div>
-					<div className="chat-container">
-						{Chats}
-						<MessageInput />
-					</div>
-					<Profile />
-				</div> */}
-
-				{/* <div>
-          <Button>{profile}</Button>
-          </div> */}
+				<PrivateRoute path="/posts/:id" component={PostDetailContainer} />
+				<Route path="/favoriteposts" component={IGaveYouFavoritePostsPage} />
 			</BrowserRouter>
 		);
 	}

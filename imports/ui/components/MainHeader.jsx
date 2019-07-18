@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Header, Button, Label, Menu, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default class MainHeader extends Component {
 	constructor(props) {
@@ -13,14 +14,10 @@ export default class MainHeader extends Component {
 	logoutHandle() {
 		Meteor.logout(() => {
 			const user = this.props.user;
-			const phone = this.props.phone;
-			console.log(user);
-
 			const name = user;
-			console.log(name);
 			const date = new Date();
-			const log = date.toString();
-			
+			const log = moment().startOf('hour').fromNow();
+			console.log(log);
 			Meteor.call(
 				'insertlog',
 				{
@@ -76,7 +73,7 @@ export default class MainHeader extends Component {
 						<Button>블로그 쓰기</Button>{' '}
 					</Link>
 
-					<Link to="/favorite">
+					<Link to="/favoriteposts">
 						{' '}
 						<Button>좋아요한 블로그</Button>{' '}
 					</Link>

@@ -24,3 +24,11 @@ Meteor.publish("user.profile", function() {
 Meteor.publish("post.detail", function(id) {
   return Posts.find({_id:id})
 });
+
+Meteor.publish("posts", function() {
+  return Posts.find({})
+});
+
+Meteor.publish("users.list", function() {
+  return Meteor.users.find()
+});

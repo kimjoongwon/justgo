@@ -46,6 +46,20 @@ Meteor.methods({
 			$set: { profile: { postidthatwrote: [ identity ] } }
 		});
 	},
+	updatecomment({ postid, username, comment, date }) {
+		Posts.update(
+			{ _id: postid },
+			{
+				$addToSet: {
+					comments: [{
+						username: username,
+						comment: comment,
+						date: date
+					}]
+				}
+			}
+		);
+	},
 
 	editpost({ title, description, content, id }) {
 		console.log('editpost method called');
@@ -56,6 +70,17 @@ Meteor.methods({
 					title: title,
 					description: description,
 					content: content
+				}
+			}
+		);
+	},
+	likeuseridinsert({ useridwhogaveheart }) {
+		console.log('likeuseridinsert method called');
+		Posts.update(
+			{},
+			{
+				$addToSet: {
+					useridwhogaveheart: useridwhogaveheart
 				}
 			}
 		);

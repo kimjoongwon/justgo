@@ -7,20 +7,21 @@ export default class Profile extends Component {
 	}
 
 	render() {
+		const { username, email, phone } = this.props;
 		return (
 			<Card>
 				<Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" wrapped ui={false} />
 				<Card.Content>
-					<Card.Header>Matthew</Card.Header>
+					<Card.Header>{username}</Card.Header>
 					<Card.Meta>
-						<span className="date">Joined in 2015</span>
+						<span className="date">{email}</span>
 					</Card.Meta>
-					<Card.Description>Matthew is a musician living in Nashville.</Card.Description>
+					<Card.Description>{phone}</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
 					<a>
 						<Icon name="user" />
-						22 Friends
+						0 Friends(ㅠㅠ))
 					</a>
 				</Card.Content>
 			</Card>

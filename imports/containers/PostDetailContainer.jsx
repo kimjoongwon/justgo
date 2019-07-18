@@ -6,11 +6,14 @@ import PostsDetailPage from '../ui/PostsDetailPage.jsx';
 const PostDetailContainer = withTracker(({ match }) => {
 	console.log('=================== withTracker =========================');
 	const { id } = match.params;
+	console.log('withTracker id: ', id);
 	const handler = Meteor.subscribe('post.detail', { postid: id });
 	// Meteor.subscribe('posts');
 
-	return {
-		post: Posts.find(id).fetch(),
+	const post = Posts.findOne(id)
+	console.log('post: ', post) 
+	return {		
+		post: Posts.findOne(id) || {},
 		// posts: Posts.find({}).fetch(),
 		loading: !handler
 	};

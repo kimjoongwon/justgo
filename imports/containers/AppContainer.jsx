@@ -11,11 +11,12 @@ const AppContainer = withTracker(() => {
   const loading2 = Meteor.subscribe("posts").ready();
   const loading3 = Meteor.subscribe("logs").ready();
   const loading4 = Meteor.subscribe("user.profile").ready();
-
-  // console.log(loading1);
-  // console.log(loading2);
-  // console.log(loading3);
-  // console.log(loading4);
+  const loading5 = Meteor.subscribe("users.list").ready();
+  console.log(loading1);
+  console.log(loading2);
+  console.log(loading3);
+  console.log(loading4);
+  console.log(loading5);
 
   return {
     chats: Chats.find({}).fetch(),
@@ -23,6 +24,7 @@ const AppContainer = withTracker(() => {
     logs: Logs.find({}).fetch(),
     phone: Meteor.users.find({}, { fields: { 'phones': 1 } }).fetch(),
     user: Meteor.userId(),
+    users: Meteor.users.find().fetch(),
     loading: !(loading1 && loading2 && loading3 && loading4)
   };
 })(App);

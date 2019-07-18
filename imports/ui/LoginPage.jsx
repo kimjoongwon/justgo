@@ -9,6 +9,7 @@ import {
   Segment,
   List
 } from "semantic-ui-react";
+import moment from 'moment';
 import { Meteor } from "meteor/meteor";
 import { Redirect } from "react-router-dom";
 
@@ -65,7 +66,8 @@ export default class LoginPage extends Component {
         // const name = ss.toString()
         console.log(ss);
         const date = new Date();
-        const log = date.toString();
+        // const log = date.toString();
+        const log = moment().startOf('hour').fromNow()
         console.log(log);
 
         Meteor.call(

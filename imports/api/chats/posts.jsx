@@ -5,6 +5,19 @@ class PostsCollection extends Mongo.Collection {}
 
 export const Posts = new PostsCollection('Posts');
 
+// Posts.allow()
+Posts.allow({
+	update() {
+		return true;
+	}
+});
+
+Posts.allow({
+	remove() {
+		return true;
+	}
+});
+//  위아래 합쳐
 //  위아래 합쳐서 Chats = Mongo.Collection('Chats') 도 가능. 근데 메소드 추가하려면 위의 방법
 
 // Posts.schema = new SimpleSchema({
