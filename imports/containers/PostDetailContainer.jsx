@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '../api/chats/posts';
-import PostsDetailPage from '../ui/PostsDetailPage.jsx';
+import PostDetail from '../ui/pages/PostDetail';
 
 const PostDetailContainer = withTracker(({ match }) => {
 	console.log('=================== withTracker =========================');
@@ -13,10 +13,10 @@ const PostDetailContainer = withTracker(({ match }) => {
 	const post = Posts.findOne(id)
 	console.log('post: ', post) 
 	return {		
-		post: Posts.findOne(id) || {},
+		post: Posts.findOne(id),
 		// posts: Posts.find({}).fetch(),
 		loading: !handler
 	};
-})(PostsDetailPage);
+})(PostDetail);
 
 export default PostDetailContainer;

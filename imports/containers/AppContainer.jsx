@@ -1,32 +1,23 @@
-import { withTracker } from "meteor/react-meteor-data";
-import { Chats } from "../api/chats/chats";
-import { Posts } from "../api/chats/posts";
-import { Meteor } from "meteor/meteor";
-import { Logs } from "../api/chats/logs";
-import App from "../ui/App";
+import { withTracker } from 'meteor/react-meteor-data';
+import { Chats } from '../api/chats/chats';
+import { Posts } from '../api/chats/posts';
+import { Meteor } from 'meteor/meteor';
 
-const AppContainer = withTracker(() => { 
-  console.log('AppContainer withTracker ----------------------------------------')
-  const loading1 = Meteor.subscribe("chats").ready();
-  const loading2 = Meteor.subscribe("posts").ready();
-  const loading3 = Meteor.subscribe("logs").ready();
-  const loading4 = Meteor.subscribe("user.profile").ready();
-  const loading5 = Meteor.subscribe("users.list").ready();
-  console.log(loading1);
-  console.log(loading2);
-  console.log(loading3);
-  console.log(loading4);
-  console.log(loading5);
+import App from '../ui/App';
 
-  return {
-    chats: Chats.find({}).fetch(),
-    posts: Posts.find({}).fetch(),
-    logs: Logs.find({}).fetch(),
-    phone: Meteor.users.find({}, { fields: { 'phones': 1 } }).fetch(),
-    user: Meteor.userId(),
-    users: Meteor.users.find().fetch(),
-    loading: !(loading1 && loading2 && loading3 && loading4)
-  };
+const AppContainer = withTracker(() => {
+	Meteor.subscribe('chats').ready();
+	Meteor.subscribe('posts').ready();
+	Meteor.subscribe('user.profile').ready();
+	Meteor.subscribe('users.list').ready();
+
+	return {
+		chats: Chats.find({}).fetch() || {},
+		posts: Posts.find({}).fetch() || {},
+		phone: Meteor.users.find({}, { fields: { phones: 1 } }).fetch() || {},
+		user: Meteor.userId() || {},
+		users: Meteor.users.find().fetch() || {}
+	};
 })(App);
 // ,{fields:{name:1,phone:1}
 export default AppContainer;

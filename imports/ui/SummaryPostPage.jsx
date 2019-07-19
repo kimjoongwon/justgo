@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Image, Container, Header, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-export class SummaryPostPage extends Component {
+
+export default class SummaryPostPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { IsClickEditButton: false };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import {Meteor} from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
 	<Route

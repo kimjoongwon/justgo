@@ -9,30 +9,14 @@ export default class MainHeader extends Component {
 		this.state = { activeItem: '' };
 		this.logoutHandle = this.logoutHandle.bind(this);
 		this.handleItemClick = this.handleItemClick.bind(this);
+		this.loginjoinMenuRender = this.loginjoinMenuRender.bind(this);
 	}
 
 	logoutHandle() {
-		Meteor.logout(() => {
-			const user = this.props.user;
-			const name = user;
-			const date = new Date();
-			const log = moment().startOf('hour').fromNow();
-			console.log(log);
-			Meteor.call(
-				'insertlog',
-				{
-					name: name + '님이 로그아웃 하셨습니다.',
-					log: log
-				},
-				(err, res) => {
-					if (err) {
-						alert(err);
-						//    여기서 NOT FOUND NOT Mehthod 에러가 발생 server.js에 import 빠짐. structure study
-					} else {
-					}
-				}
-			);
-		});
+		Meteor.logout();
+		console.log('로그아웃했어요!');
+		this.loginjoinMenuRender();
+		console.log('로그아웃 랜더링도 헀어요.');
 	}
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -60,22 +44,16 @@ export default class MainHeader extends Component {
 	logoutRender() {
 		const user = this.props.user;
 		const phone = this.props.phone;
-		if (user) {
-			console.log(user);
-			// console.log(phone[0].phones);
-		}
-		// const asd = phone[0].phones.toStirng()
+
 		return (
 			<div className="logout-header-container">
 				<div>
 					<Link to="/blogwrite">
-						{' '}
-						<Button>블로그 쓰기</Button>{' '}
+						<Button>블로그 쓰기</Button>
 					</Link>
 
 					<Link to="/favoriteposts">
-						{' '}
-						<Button>좋아요한 블로그</Button>{' '}
+						<Button>좋아요한 블로그</Button>
 					</Link>
 				</div>
 				<Link to="/">

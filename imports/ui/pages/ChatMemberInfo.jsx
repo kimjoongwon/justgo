@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, List } from 'semantic-ui-react';
 
-export default class ChatMemberListPage extends Component {
+export default class ChatMemberInfo extends Component {
 	constructor(props) {
 		super(props);
 		this.onClickChatMember = this.onClickChatMember.bind(this);
@@ -17,10 +17,7 @@ export default class ChatMemberListPage extends Component {
 	}
 
 	render() {
-		const { user } = this.props;
 		const username = this.props.user.profile.username;
-		const phone = this.props.user.profile.phone;
-
 		return (
 			<div>
 				<List.Item onClick={this.onClickChatMember}>

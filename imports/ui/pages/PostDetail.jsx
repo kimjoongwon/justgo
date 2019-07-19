@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Label, Form, Button, Input, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { Posts } from '../api/chats/posts';
-import { METHODS } from 'http';
-import CommentPage from './CommentPage';
+import { Posts } from '../../api/chats/posts';
+import PostComment from './PostComment';
 import shortid from 'shortid';
-import { throws } from 'assert';
-export default class PostsDetailPage extends Component {
+
+export default class PostDetail extends Component {
 	constructor(props) {
 		super(props);
-		console.log('PostsDetailPage constructor !!!!');
 		this.state = {
 			title: '',
 			descriptions: '',
@@ -29,14 +26,8 @@ export default class PostsDetailPage extends Component {
 		this.onClickLike = this.onClickLike.bind(this);
 		this.onClickSendComment = this.onClickSendComment.bind(this);
 		this.onChangeCommentHander = this.onChangeCommentHander.bind(this);
-		this.onUserListClickHandler = this.onUserListClickHandler.bind(this);
-		Meteor.user();
 	}
-
-	onUserListClickHandler() {}
-
 	onClickLike() {
-		console.log('B');
 		const postid = this.props.post._id;
 		const userid = Meteor.userId();
 		const isredheart = this.state.isredheart;
@@ -47,7 +38,6 @@ export default class PostsDetailPage extends Component {
 			this.setState({ color: 'red' });
 		} else {
 			Posts.update({ _id: postid }, { $pull: { useridwhogaveheart: userid } });
-
 			this.setState({ isredheart: !isredheart });
 			this.setState({ color: 'grey' });
 		}
@@ -58,14 +48,9 @@ export default class PostsDetailPage extends Component {
 	}
 
 	onClickSendComment(event) {
-		console.log(Meteor.user().emails[0]);
 		const username = Meteor.user().profile.username;
-		const user = Meteor.user();
-
 		const comment = this.state.comment;
-		console.log(comment);
-		console.log(username);
-		console.log(user);
+
 		Meteor.call(
 			'updatecomment',
 			{
@@ -77,7 +62,6 @@ export default class PostsDetailPage extends Component {
 			(err, res) => {
 				if (err) {
 					alert(err);
-					//    여기서 NOT FOUND NOT Mehthod 에러가 발생 server.js에 import 빠짐. structure study
 				} else {
 					console.log('success!!!!!');
 				}
@@ -103,18 +87,15 @@ export default class PostsDetailPage extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-
-		console.log('onSubmit called');
 		const title = this.state.title;
 		const description = this.state.description;
 		const content = this.state.content;
 
 		if (!title) {
-			console.log('제목 없어욧!');
+			console.log('제목없습니다.');
 		}
 
 		const { post } = this.props;
-
 		console.log(post._id);
 		Meteor.call(
 			'editpost',
@@ -127,24 +108,19 @@ export default class PostsDetailPage extends Component {
 			(err, res) => {
 				if (err) {
 					alert(err);
-					//    여기서 NOT FOUND NOT Mehthod 에러가 발생 server.js에 import 빠짐. structure study
 				} else {
-					console.log('success!!!!!');
 				}
 			}
 		);
 	}
-	// likeHandler() {
-	// 	this.setState({ Like: true });
-	// }
 
 	renderHandler() {
 		this.setState({ doyouwanttoedit: true });
 	}
 
 	renderEdit() {
-		const { post, loading } = this.props;
-		console.log('뭐야 ㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠㅠs');
+		const { post } = this.props;
+
 		return (
 			<Container>
 				<Form>
@@ -163,11 +139,11 @@ export default class PostsDetailPage extends Component {
 						placeholder="내용"
 						defaultValue={post.content}
 					/>
-
-					<Button type="send" onClick={this.onSubmit}>
-						수정하기
-					</Button>
-
+					<Link to="/">
+						<Button type="send" onClick={this.onSubmit}>
+							수정하기
+						</Button>
+					</Link>
 					<Link to="/">
 						<Button type="cancel">취소</Button>
 					</Link>
@@ -177,24 +153,24 @@ export default class PostsDetailPage extends Component {
 	}
 
 	renderPostDetail() {
-		const { post, loading } = this.props;
+		const { post } = this.props;
 		const userid = Meteor.userId();
-		var classified = post.useridwhogaveheart.includes(userid);
+		if (post.useridwhogaveheart) {
+			var classified = post.useridwhogaveheart.includes(userid);
+		}
 
-		// console.log(classified);
 		if (classified) {
 			this.state.color = 'red';
-			console.log('redset');
 		} else {
 			this.state.color = 'grey';
-			console.log('');
 		}
-		// 처음 시작에 하트색 결정 하는 부분.하트를 누른 사용자는 하트로 표시 하트를 누르지 않은 사용자는 그레이로 표시되도록 초기화 단계 설정.
-		let Comments;
 
-		Comments = post.comments.map((comment) => (
-			<CommentPage comment={comment.comment} username={comment.username} key={shortid.generate()} />
-		));
+		let Comments;
+		if (post.comments) {
+			Comments = post.comments.map((comment) => (
+				<PostComment comment={comment.comment} username={comment.username} key={shortid.generate()} />
+			));
+		}
 
 		return (
 			<Container>

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react';
 
-export default class CommentPage extends Component {
+export default class PostComment extends Component {
 	constructor(props) {
         super(props)
     }

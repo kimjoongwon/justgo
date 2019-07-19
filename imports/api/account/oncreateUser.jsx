@@ -7,7 +7,7 @@ Accounts.onCreateUser((options, user) => {
 
 	user.profile = {
 		username: options.profile.name,
-    phone: options.profile.phone,  
+    	phone: options.profile.phone,  
 		postidthatgaveheart: options.profile.postidthatgaveheart,
 		postidthatiwrote: options.profile.postidthatiwrote,
 		postidthatwrote: options.profile.postidthatwrote

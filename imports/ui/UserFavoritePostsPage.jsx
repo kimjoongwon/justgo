@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Label } from 'semantic-ui-react';
 
-export default class IGaveYouFavoritePostsPage extends Component {
+export default class UserFavoritePostsPage extends Component {
 	constructor(props) {
 		super(props);
 	}

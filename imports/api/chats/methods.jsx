@@ -1,11 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Chats } from '../chats/chats';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Posts } from '../chats/posts';
 
-import { Logs } from './logs';
-import { Accounts } from 'meteor/accounts-base';
+
+
 
 Meteor.methods({
 	insertchat({ name, messages }) {

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Chats } from '../api/chats/chats';
-import { toUnicode } from 'punycode';
-import shortid from 'shortid';
-import List, { Button, Label } from 'semantic-ui-react';
+import { Label } from 'semantic-ui-react';
 
-export default class ChatPage extends Component {
+export default class ChatWindow extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { name: '' };
@@ -17,7 +14,6 @@ export default class ChatPage extends Component {
 
 	render() {
 		const { name, message } = this.props;
-		console.log(name, message);
 		return (
 			<div className="message-container">
 				<Label onChange={this.handleMessage}>
