@@ -3,7 +3,7 @@ import Login from './pages/Login';
 import Join from './pages/Join';
 import ChatWindow from './pages/ChatWindow';
 import shortid from 'shortid';
-import { List, Grid } from 'semantic-ui-react';
+import { List, Grid, Container } from 'semantic-ui-react';
 import { PostWrite } from './pages/PostWrite';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import MainHeader from './components/MainHeader';
@@ -48,28 +48,32 @@ export default class App extends Component {
 	renderChatMemberInfo() {
 		return (
 			<div>
-				<MemberSearch users={this.props.users} MemberInfoHandler={this.MemberInfoHandler} />
+				<Container text fluid="center">
+					<MemberSearch users={this.props.users} MemberInfoHandler={this.MemberInfoHandler} />
 
-				<List celled>
-					{this.props.users.map((user) => (
-						<ChatMemberInfo
-							user={user}
-							MemberInfoHandler={this.MemberInfoHandler}
-							key={shortid.generate()}
-						/>
-					))}
-				</List>
+					<List celled>
+						{this.props.users.map((user) => (
+							<ChatMemberInfo
+								user={user}
+								MemberInfoHandler={this.MemberInfoHandler}
+								key={shortid.generate()}
+							/>
+						))}
+					</List>
+				</Container>
 			</div>
 		);
 	}
 
 	renderChatWindow() {
 		return (
-			<div className="chat-container">
-				{this.props.chats.map((chat) => (
-					<ChatWindow name={chat.name} message={chat.messages} key={shortid.generate()} />
-				))}
-				<MessageInput />
+			<div class="chat-container">
+				<Container>
+					{this.props.chats.map((chat) => (
+						<ChatWindow name={chat.name} message={chat.messages} key={shortid.generate()} />
+					))}
+					<MessageInput />
+				</Container>
 			</div>
 		);
 	}
@@ -85,18 +89,20 @@ export default class App extends Component {
 					path="/"
 					render={() => (
 						<div>
-							<div className="main-container">
-								<div className="chat-member-container">{this.renderChatMemberInfo()}</div>
-								<div className="chat-member-profile">
-									<Profile
-										username={this.state.username}
-										email={this.state.email}
-										phone={this.state.phone}
-									/>
+							<div class="main-container">
+								<div class="chat-member-container">{this.renderChatMemberInfo()}</div>
+								<div class="chat-member-profile">
+									<Container fluid="center">
+										<Profile
+											username={this.state.username}
+											email={this.state.email}
+											phone={this.state.phone}
+										/>
+									</Container>
 								</div>
-								<div className="chat-window-container">{this.renderChatWindow()}</div>
+								<div class="chat-window-container">{this.renderChatWindow()}</div>
 							</div>
-							<div className="summary-posts-container">
+							<div class="summary-posts-container">
 								<PostsContainer />
 							</div>
 						</div>
