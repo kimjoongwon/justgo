@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
-import { Posts } from '../api/chats/posts';
+import { Posts } from '../../api/posts/posts';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
-export class PostsPage extends Component {
+export class PostWrite extends Component {
 	constructor(props) {
 		super(props);
 		console.log('PostsPage constructor!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');

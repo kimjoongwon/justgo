@@ -1,8 +1,7 @@
 import { withTracker } from 'meteor/react-meteor-data';
 import { Chats } from '../api/chats/chats';
-import { Posts } from '../api/chats/posts';
+import { Posts } from '../api/posts/posts';
 import { Meteor } from 'meteor/meteor';
-
 import App from '../ui/App';
 
 const AppContainer = withTracker(() => {
@@ -18,6 +17,6 @@ const AppContainer = withTracker(() => {
 		user: Meteor.userId() || {},
 		users: Meteor.users.find().fetch() || {}
 	};
-})(App);
-// ,{fields:{name:1,phone:1}
+})(App)
+
 export default AppContainer;

@@ -14,9 +14,7 @@ export default class MainHeader extends Component {
 
 	logoutHandle() {
 		Meteor.logout();
-		console.log('로그아웃했어요!');
 		this.loginjoinMenuRender();
-		console.log('로그아웃 랜더링도 헀어요.');
 	}
 	handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -66,6 +64,6 @@ export default class MainHeader extends Component {
 	}
 
 	render() {
-		return !this.props.user ? this.loginjoinMenuRender() : this.logoutRender();
+		return !Meteor.userId() ? this.loginjoinMenuRender() : this.logoutRender();
 	}
 }

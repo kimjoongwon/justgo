@@ -12,7 +12,7 @@ export default class UserFavoritePostsPage extends Component {
 		console.log(ss);
 		return (
 			<div>
-				<Label>asdadadasd</Label>
+				<Label>미완성</Label>
 			</div>
 		);
 	}

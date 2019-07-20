@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Label, Form, Button, Input, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { Posts } from '../../api/chats/posts';
+import { Posts } from '../../api/posts/posts';
 import PostComment from './PostComment';
 import shortid from 'shortid';
 
-export default class PostDetail extends Component {
+export default class DetailPost extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -63,7 +63,7 @@ export default class PostDetail extends Component {
 				if (err) {
 					alert(err);
 				} else {
-					console.log('success!!!!!');
+					// console.log('success!!!!!');
 				}
 			}
 		);
@@ -152,7 +152,7 @@ export default class PostDetail extends Component {
 		);
 	}
 
-	renderPostDetail() {
+	renderDetailPost() {
 		const { post } = this.props;
 		const userid = Meteor.userId();
 		if (post.useridwhogaveheart) {
@@ -211,6 +211,6 @@ export default class PostDetail extends Component {
 	render() {
 		console.log('this.state.doyouwanttoedit: ', this.state.doyouwanttoedit);
 
-		return this.state.doyouwanttoedit ? this.renderEdit() : this.renderPostDetail();
+		return this.state.doyouwanttoedit ? this.renderEdit() : this.renderDetailPost();
 	}
 }

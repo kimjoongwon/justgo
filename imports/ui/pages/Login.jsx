@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment, List } from 'semantic-ui-react';
-import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 import { Redirect } from 'react-router-dom';
 
-export default class LoginPage extends Component {
+export default class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
