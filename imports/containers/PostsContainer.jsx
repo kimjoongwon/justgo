@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '../api/posts/posts';
-import SummaryPosts from '../ui/pages/SummaryPosts';
+import SummaryPosts from '../ui/pages/posts/SummaryPosts';
 
 const PostsContainer = withTracker(({}) => {
 	// const { id } = match.params;

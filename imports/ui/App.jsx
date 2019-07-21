@@ -1,86 +1,31 @@
 import React, { Component } from 'react';
 import Login from './pages/Login';
 import Join from './pages/Join';
-import ChatWindow from './pages/ChatWindow';
-import shortid from 'shortid';
-import { List, Grid, Container } from 'semantic-ui-react';
-import { PostWrite } from './pages/PostWrite';
+import { PostWrite } from './pages/posts/PostWrite';
 import { BrowserRouter, Route, NavLink } from 'react-router-dom';
 import MainHeader from './components/MainHeader';
-import Profile from '../ui/Profile';
-import MessageInput from '../ui/components/MessageInput';
 import PostsContainer from '../containers/PostsContainer';
-import ChatMemberInfo from './pages/ChatMemberInfo';
-import IGaveYouFavoritePostsPage from './UserFavoritePostsPage';
-import UserFavoritePostsPage from './UserFavoritePostsPage';
+import IGaveYouFavoritePostsPage from './pages/posts/UserFavoritePostsPage';
+import UserFavoritePostsPage from './pages/posts/UserFavoritePostsPage';
 import PostContainer from '../containers/PostContainer';
-import faker from 'faker';
-import MemberSearch from './components/MemberSearch';
-
 import _ from 'lodash';
+import MemberContainer from '../containers/MemberContainer';
+import ChatsContainer from '../containers/ChatsContainer';
+
 export default class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { name: '', message: '', profile: {}, username: '', email: '', phone: '' };
-		this.handleMessage = this.handleMessage.bind(this);
-		this.MemberInfoHandler = this.MemberInfoHandler.bind(this);
-		this.renderChatMemberInfo = this.renderChatMemberInfo.bind(this);
-		this.renderChatWindow = this.renderChatWindow.bind(this);
-		const source = _.times(5, () => ({
-			title: faker.company.companyName(),
-			description: faker.company.catchPhrase(),
-			image: faker.internet.avatar(),
-			price: faker.finance.amount(0, 100, 2, '$')
-		}));
 
-		console.log(source, '========');
-	}
-
-	MemberInfoHandler(e, phone, username, email) {
-		this.setState({ phone: phone, username: username, email: email });
-	}
-
-	handleMessage(e) {
-		const message = e.target.value;
-		this.setState({ message: message });
-	}
-
-	renderChatMemberInfo() {
-		return (
-			<div>
-				<Container text fluid="center">
-					<MemberSearch users={this.props.users} MemberInfoHandler={this.MemberInfoHandler} />
-
-					<List celled>
-						{this.props.users.map((user) => (
-							<ChatMemberInfo
-								user={user}
-								MemberInfoHandler={this.MemberInfoHandler}
-								key={shortid.generate()}
-							/>
-						))}
-					</List>
-				</Container>
-			</div>
-		);
-	}
-
-	renderChatWindow() {
-		return (
-			<div class="chat-container">
-				<Container>
-					{this.props.chats.map((chat) => (
-						<ChatWindow name={chat.name} message={chat.messages} key={shortid.generate()} />
-					))}
-					<MessageInput />
-				</Container>
-			</div>
-		);
+		// const source = _.times(5, () => ({
+		// 	title: faker.company.companyName(),
+		// 	description: faker.company.catchPhrase(),
+		// 	image: faker.internet.avatar(),
+		// 	price: faker.finance.amount(0, 100, 2, '$')
+		// }));
 	}
 
 	render() {
 		const { user, phone } = this.props;
-		console.log('====================');
 		return (
 			<BrowserRouter>
 				<MainHeader user={user} phone={phone} />
@@ -90,17 +35,12 @@ export default class App extends Component {
 					render={() => (
 						<div>
 							<div class="main-container">
-								<div class="chat-member-container">{this.renderChatMemberInfo()}</div>
-								<div class="chat-member-profile">
-									<Container fluid="center">
-										<Profile
-											username={this.state.username}
-											email={this.state.email}
-											phone={this.state.phone}
-										/>
-									</Container>
+								<div class="chat-member-container">
+									<MemberContainer />
 								</div>
-								<div class="chat-window-container">{this.renderChatWindow()}</div>
+								<div class="chat-window-container">
+									<ChatsContainer />
+								</div>
 							</div>
 							<div class="summary-posts-container">
 								<PostsContainer />

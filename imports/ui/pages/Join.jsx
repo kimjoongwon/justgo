@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Form, Label, Input, Button } from 'semantic-ui-react';
+import { Form, Label, Input, Button, Grid, Header, Segment } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Redirect } from 'react-router-dom';
+
 export default class Join extends Component {
 	constructor(props) {
 		super(props);
@@ -93,34 +94,68 @@ export default class Join extends Component {
 
 	render() {
 		return (
-			<div className="join-top-container">
-				<Form label="로그인">
-					<div className="join-container">
-						<Label>
-							이메일
-							<Input type="email" onChange={this.handleEmail} />
-						</Label>
-						<Label>
-							전화번호
-							<Input type="text" onChange={this.handlePhone} />
-						</Label>
-						<Label>
-							이름
-							<Input type="text" onChange={this.handleName} />
-						</Label>
-						<Label>
-							비밀번호
-							<Input type="password" onChange={this.handlePassword} />
-						</Label>
-						<Label>
-							비밀번호 확인
-							<Input type="password" onChange={this.handlePasswordDoubleCheck} />
-						</Label>
+			<Grid textAlign="center" style={{ height: 200 }} verticalAlign="middle">
+				<Grid.Column style={{maxWidth: 450}}>
+					<Header as="h2" textAlign="center">
+						Join Our Member
+					</Header>
+					<Form size="large">
+						<Segment stacked>
+							<Form.Input fluid type="email" placeholder="이메일을 입력하세요." onChange={this.handleEmail} />
 
-						<Button type="submit" content="회원가입" onClick={this.handleSubmit} />
-					</div>
-				</Form>
-			</div>
+							<Form.Input type='phone' placeholder="전화번호를 입력하세요" onChange={this.handlePhone} />
+
+							<Form.Input placeholder="이름을 입력하세요." onChange={this.handleName} />
+
+							<Form.Input type="password" placeholder="비밀번호를 입력하세요" onChange={this.handlePassword} />
+
+							<Form.Input type="password" placeholder="확을 위해서 비밀번호를 한 번 더 입력하세요" onChange={this.handlePasswordDoubleCheck} />
+
+							<Button fluid size="large" placeholder="회원가입" onClick={this.handleSubmit}>
+								회원가입
+							</Button>
+						</Segment>
+					</Form>
+				</Grid.Column>
+			</Grid>
 		);
 	}
 }
+
+// <Grid textAlign="center" style={{ hÎeight: '100vh' }} verticalAlign="middle">
+// 	<Grid.Column style={{ maxWidth: 450 }}>
+// 		<Header as="h2" color="teal" textAlign="center">
+// 			<Image src="/logo.png" /> Log-in to your account
+// 		</Header>
+// 		<Form size="large">
+// 			<Segment stacked>
+// 				<Form.Input
+// 					fluid
+// 					icon="user"
+// 					iconPosition="left"
+// 					placeholder="E-mail address"
+// 					onChange={this.handleEmail}
+// 				/>
+// 				<Form.Input
+// 					fluid
+// 					icon="lock"
+// 					iconPosition="left"
+// 					placeholder="Password"
+// 					type="password"
+// 					onChange={this.handlePassword}
+// 				/>
+
+// 				<Button color="teal" fluid size="large" onClick={this.onSubmit}>
+// 					Login
+// 				</Button>
+// 			</Segment>
+// 		</Form>
+// 		<Message>
+// 			New to us? <a href="#">Sign Up</a>
+// 		</Message>
+// 		<List>
+// 			{/* <List.Item>{this.state.useremail}</List.Item> */}
+// 			<List.Item>{this.state.date}</List.Item>
+// 		</List>
+// 	</Grid.Column>
+// </Grid>;

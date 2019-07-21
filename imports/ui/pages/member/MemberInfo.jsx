@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
-export default class Profile extends Component {
+export default class MemberInfo extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -14,7 +14,7 @@ export default class Profile extends Component {
 				<Card.Content>
 					<Card.Header>{username}</Card.Header>
 					<Card.Meta>
-						<span className="date">{email}</span>
+						<span class="date">{email}</span>
 					</Card.Meta>
 					<Card.Description>{phone}</Card.Description>
 				</Card.Content>

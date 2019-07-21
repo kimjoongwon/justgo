@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
-import { Posts } from '../../api/posts/posts';
+import { Posts } from '../../../api/posts/posts';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 

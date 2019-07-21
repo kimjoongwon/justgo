@@ -10,7 +10,7 @@ export default class MemberSearch extends Component {
 
 	handleResultSelect = (e, { result }) => {
 		this.setState({ value: result.title });
-		this.props.MemberInfoHandler(e, result.description, result.title, result.price);
+		this.props.memberinfohandler(result.description, result.title, result.price);
 	};
 
 	handleSearchChange = (e, { value }) => {

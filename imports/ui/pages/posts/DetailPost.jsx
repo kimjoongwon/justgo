@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Label, Form, Button, Input, Container, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { Posts } from '../../api/posts/posts';
+import { Posts } from '../../../api/posts/posts';
 import PostComment from './PostComment';
 import shortid from 'shortid';
 

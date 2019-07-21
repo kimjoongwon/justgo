@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { Image, List } from 'semantic-ui-react';
 
-export default class ChatMemberInfo extends Component {
+export default class MemberStatus extends Component {
 	constructor(props) {
 		super(props);
 		this.onClickChatMember = this.onClickChatMember.bind(this);
 	}
 
 	onClickChatMember(e) {
-		this.props.MemberInfoHandler(
-			e,
+		this.props.memberinfohandler(e,
 			this.props.user.profile.phone,
 			this.props.user.profile.username,
 			this.props.user.emails[0].address
 		);
+		console.log(this.props.user.profile.phone);
 	}
 
 	render() {

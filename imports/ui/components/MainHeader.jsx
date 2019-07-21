@@ -21,7 +21,7 @@ export default class MainHeader extends Component {
 	loginjoinMenuRender() {
 		const { activeItem } = this.state;
 		return (
-			<div className="header-container">
+			<div class="header-container">
 				<div />
 				<Header>
 					<Link to="/">ToyProject</Link>
@@ -44,7 +44,7 @@ export default class MainHeader extends Component {
 		const phone = this.props.phone;
 
 		return (
-			<div className="logout-header-container">
+			<div class="logout-header-container">
 				<div>
 					<Link to="/blogwrite">
 						<Button>블로그 쓰기</Button>

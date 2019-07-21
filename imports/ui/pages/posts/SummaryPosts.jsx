@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Segment, Image, Container, Header, Button } from 'semantic-ui-react';
-import SummaryPost from '../SummaryPost';
+import SummaryPost from './SummaryPost';
 import shortid from 'shortid';
 import { NavLink } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export default class SummaryPosts extends Component {
 	}
 	renderSummaryPostPage() {
 		return this.props.posts.map((post) => (
-			<NavLink to={`/posts/${post._id}`} key={post._id} className="post">
+			<NavLink to={`/posts/${post._id}`} key={post._id} class="post">
 				<SummaryPost
 					title={post.title}
 					description={post.description}
