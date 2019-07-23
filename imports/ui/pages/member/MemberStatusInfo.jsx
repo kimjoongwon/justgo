@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
-import { List, Grid, Container } from 'semantic-ui-react';
+import { List, Grid, Container, Segment } from 'semantic-ui-react';
 import MemberStatus from './MemberStatus';
 import MemberSearch from '../../components/MemberSearch';
 import MemberInfo from './MemberInfo';
 import _ from 'lodash';
+import { Meteor } from 'meteor/meteor';
 
 export default class MemberStatusInfo extends Component {
 	constructor(props) {
@@ -12,46 +13,41 @@ export default class MemberStatusInfo extends Component {
 		this.state = { name: '', message: '', profile: {}, username: '', email: '', phone: '' };
 		this.memberinfohandler = this.memberinfohandler.bind(this);
 		this.renderChatMemberInfo = this.renderChatMemberInfo.bind(this);
+		this.renderMemberStatus = this.renderMemberStatus.bind(this);
 	}
 
 	memberinfohandler(e, phone, username, email) {
-		this.setState({ phone: phone, username: username, email: email });
+		if (!Meteor.userId()) {
+			alert('로그인 하세요.');
+		} else {
+			this.setState({ phone: phone, username: username, email: email });
+		}
+	}
+
+	renderMemberStatus() {
+		return (
+			<List celled>
+				{this.props.users.map((user) => (
+					<MemberStatus user={user} memberinfohandler={this.memberinfohandler} key={shortid.generate()} />
+				))}
+			</List>
+		);
 	}
 
 	renderChatMemberInfo() {
 		return (
-			<div>
-				<Container text>
+			<Segment.Group horizontal>
+				<Segment>
 					<MemberSearch users={this.props.users} memberinfohandler={this.memberinfohandler} />
-					<List celled>
-						{this.props.users.map((user) => (
-							<MemberStatus
-								user={user}
-								memberinfohandler={this.memberinfohandler}
-								key={shortid.generate()}
-							/>
-						))}
-					</List>
+					<List celled>{this.renderMemberStatus()}</List>
+				</Segment>
 
+				<Segment>
 					<MemberInfo username={this.state.username} email={this.state.email} phone={this.state.phone} />
-				</Container>
-			</div>
+				</Segment>
+			</Segment.Group>
 		);
 	}
-
-	// renderChatWindow() {
-	// 	return (
-	// 		<div class="chat-container">
-	// 			<Container>
-	// 				{this.props.chats.map((chat) => (
-	// 					<ChatWindow name={chat.name} message={chat.messages} key={shortid.generate()} />
-	// 				))}
-	// 				<MessageInput />
-	// 			</Container>
-	// 		</div>
-	// 	);
-	// }
-
 	render() {
 		return this.renderChatMemberInfo();
 	}

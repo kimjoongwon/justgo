@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
 
 export default class MemberInfo extends Component {
 	constructor(props) {
@@ -9,7 +10,7 @@ export default class MemberInfo extends Component {
 	render() {
 		const { username, email, phone } = this.props;
 		return (
-			<Card>
+			<Card centered>
 				<Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" wrapped ui={false} />
 				<Card.Content>
 					<Card.Header>{username}</Card.Header>
@@ -18,12 +19,7 @@ export default class MemberInfo extends Component {
 					</Card.Meta>
 					<Card.Description>{phone}</Card.Description>
 				</Card.Content>
-				<Card.Content extra>
-					<a>
-						<Icon name="user" />
-						0 Friends(ㅠㅠ))
-					</a>
-				</Card.Content>
+				<Card.Content extra>{Meteor.userId() ? '' : '로그인하세요.'}</Card.Content>
 			</Card>
 		);
 	}

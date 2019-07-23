@@ -35,10 +35,10 @@ export default class MessageInput extends Component {
 
 	render() {
 		return (
-			<div>
+			<Form>
 				<Form.Input iconPosition="left" placeholder="message" type="text" onChange={this.handleMessage} />
 				<Button onClick={this.onMessageSubmit}>전달</Button>
-			</div>
+			</Form>
 		);
 	}
 }

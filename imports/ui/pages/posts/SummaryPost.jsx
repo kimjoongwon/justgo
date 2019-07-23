@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Grid, Segment } from 'semantic-ui-react';
+import { Label, Grid, Segment, Container, Icon } from 'semantic-ui-react';
 export default class SummaryPost extends Component {
 	constructor(props) {
 		super(props);
@@ -8,11 +8,25 @@ export default class SummaryPost extends Component {
 	render() {
 		return (
 			<div>
-				<Segment>
-					<Label>{this.props.title}</Label>
-					<Label>{this.props.description}</Label>
-					<Label>{this.props.content}</Label>
-				</Segment>
+				<Grid.Column>
+					<Grid.Row>
+						<Container text>{this.props.title}</Container>
+					</Grid.Row>
+					<Grid.Row>
+						<Container text>{this.props.description}</Container>
+					</Grid.Row>
+					<Grid.Row>
+						<Container text>{this.props.content}</Container>
+					</Grid.Row>
+					<Grid.Row>
+						<Container text>{this.props.content}</Container>
+					</Grid.Row>
+					<Grid.Row>
+						<Icon color="grey" name="heart" /> {this.props.likecount}
+						<Icon color="grey" name="comment" />
+						{this.props.commentcount}
+					</Grid.Row>
+				</Grid.Column>
 			</div>
 		);
 	}

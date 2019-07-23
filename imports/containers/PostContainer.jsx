@@ -1,21 +1,23 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '../api/posts/posts';
-import DetailPost from '../ui/pages/posts/DetailPost';
+import Post from '../ui/pages/posts/Post';
 
 const PostContainer = withTracker(({ match }) => {
-	console.log(match);
-
 	const { id } = match.params;
+	console.log(id);
 
-	Meteor.subscribe('post', { postid: id });
+	const isloading = Meteor.subscribe('post', id).ready();
+	console.log(isloading, '==========콘테이너는 실행 ===============');
+	post = Posts.find().fetch();
+	console.log(post);
+
+	console.log(Posts.find({ _id: 'u7aaMoE6a7wdrQRoi' }).fetch());
+	console.log(Posts.find({ _id: id }).fetch());
 
 	return {
-		post: Posts.findOne(id)
+		post: Posts.findOne({ _id: id }) || {}
 	};
-})(DetailPost);
+})(Post);
 
 export default PostContainer;
-
-// 다 가져올 이유가 있나? 다 가져오면 느린데? 하나만 볼껀데?
-// post와 posts도 나눠야 하나? 허거덩...?!

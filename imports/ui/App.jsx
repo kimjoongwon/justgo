@@ -11,17 +11,20 @@ import PostContainer from '../containers/PostContainer';
 import _ from 'lodash';
 import MemberContainer from '../containers/MemberContainer';
 import ChatsContainer from '../containers/ChatsContainer';
+import { Grid, Segment } from 'semantic-ui-react';
+import faker from 'faker';
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
 
-		// const source = _.times(5, () => ({
-		// 	title: faker.company.companyName(),
-		// 	description: faker.company.catchPhrase(),
-		// 	image: faker.internet.avatar(),
-		// 	price: faker.finance.amount(0, 100, 2, '$')
+		// const ss = _.times(20, () => ({
+		// 	title: faker.company.sentences,
+		// 	summary: faker.lorem.paragraphs(),
+		// 	content: faker.lorem.paragraphs()
 		// }));
+
+		// console.log(ss);
 	}
 
 	render() {
@@ -34,17 +37,16 @@ export default class App extends Component {
 					path="/"
 					render={() => (
 						<div>
-							<div class="main-container">
-								<div class="chat-member-container">
+							<Segment.Group horizontal>
+								<Segment>
 									<MemberContainer />
-								</div>
-								<div class="chat-window-container">
+								</Segment>
+								<Segment>
 									<ChatsContainer />
-								</div>
-							</div>
-							<div class="summary-posts-container">
-								<PostsContainer />
-							</div>
+								</Segment>
+							</Segment.Group>
+
+							<PostsContainer />
 						</div>
 					)}
 				/>

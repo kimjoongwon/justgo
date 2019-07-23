@@ -24,6 +24,7 @@ export default class MemberStatus extends Component {
 					<Image avatar src="https://react.semantic-ui.com/images/avatar/small/rachel.png" />
 					<List.Content>
 						<List.Header>{username}</List.Header>
+						<List.Description>1시간 전에 로그인</List.Description>
 					</List.Content>
 				</List.Item>
 			</div>

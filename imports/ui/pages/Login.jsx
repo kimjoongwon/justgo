@@ -55,10 +55,10 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<Grid textAlign="center" style={{ hÎeight: '100vh' }} verticalAlign="middle">
+			<Grid textAlign="center" style={{ height: 800 }} verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as="h2" textAlign="center">
-						Log-in to your account
+							계정에 로그인 하세요.
 					</Header>
 					<Form size="large">
 						<Segment stacked>

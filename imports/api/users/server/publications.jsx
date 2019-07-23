@@ -6,6 +6,6 @@ Meteor.publish('user.profile', function() {
 	});
 });
 
-Meteor.publish('users.list', function() {
+Meteor.publish('users', function() {
 	return Meteor.users.find();
 });

@@ -3,6 +3,7 @@ import { Form, Button } from 'semantic-ui-react';
 import { Posts } from '../../../api/posts/posts';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
+import faker from 'faker';
 
 export class PostWrite extends Component {
 	constructor(props) {
@@ -35,15 +36,32 @@ export class PostWrite extends Component {
 
 		this.setState({ title: title, description: description, content: content });
 
+		// const ss = _.times(20, () => ({
+		// 	title: faker.company.sentences,
+		// 	summary: faker.lorem.paragraphs(),
+		// 	content: faker.lorem.paragraphs()
+		// }));
+
+		// console.log(ss);
+		// console.log(Meteor.user());
+
 		Meteor.call(
 			'insertpost',
 			{
+				Author: Meteor.user().profile.username,
+				postAuthorId: Meteor.userId(),
 				title: title,
 				description: description,
 				content: content,
-				identity: shortid.generate(),
-				useridwhowrotehtepost: Meteor.userId(),
-				useridwhogaveheart: []
+				hearts: [],
+				createAt: new Date(),
+				comments: [
+					{
+						username: '',
+						comment: '',
+						date: ''
+					}
+				]
 			},
 			(err, res) => {
 				if (err) {

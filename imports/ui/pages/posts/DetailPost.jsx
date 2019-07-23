@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Label, Form, Button, Input, Container, Icon } from 'semantic-ui-react';
+import { Label, Form, Button, Icon, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Posts } from '../../../api/posts/posts';
+import { Meteor } from 'meteor/meteor';
 import PostComment from './PostComment';
 import shortid from 'shortid';
 
@@ -9,45 +10,32 @@ export default class DetailPost extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: '',
-			descriptions: '',
-			contents: '',
-			doyouwanttoedit: false,
-			isredheart: false,
+			isRed: false,
 			color: 'grey',
-			comment: '',
-			user: ''
+			classifiedColor: false
 		};
-		this.onSubmit = this.onSubmit.bind(this);
-		this.handleContent = this.handleContent.bind(this);
-		this.handleDescription = this.handleDescription.bind(this);
-		this.handleTitle = this.handleTitle.bind(this);
-		this.renderHandler = this.renderHandler.bind(this);
-		this.onClickLike = this.onClickLike.bind(this);
-		this.onClickSendComment = this.onClickSendComment.bind(this);
-		this.onChangeCommentHander = this.onChangeCommentHander.bind(this);
-	}
-	onClickLike() {
-		const postid = this.props.post._id;
-		const userid = Meteor.userId();
-		const isredheart = this.state.isredheart;
 
-		if (!isredheart) {
-			Posts.update({ _id: postid }, { $addToSet: { useridwhogaveheart: userid } });
-			this.setState({ isredheart: !isredheart });
+		console.log(this.props.post, '디테일 포스트 실행됬어요!!!!!!!!!!!!!!!!!!!!!!');
+	}
+
+	onClickLike = () => {
+		if (!this.state.isRed) {
+			Posts.update({ _id: this.props.post._id }, { $addToSet: { hearts: Meteor.userId() } });
+			this.setState({ isRed: !this.state.isRed });
 			this.setState({ color: 'red' });
 		} else {
-			Posts.update({ _id: postid }, { $pull: { useridwhogaveheart: userid } });
-			this.setState({ isredheart: !isredheart });
+			Posts.update({ _id: this.props.post._id }, { $pull: { hearts: Meteor.userId() } });
+			this.setState({ isRed: !this.state.isRed });
 			this.setState({ color: 'grey' });
+			// hearts;
 		}
-	}
+	};
 
-	onChangeCommentHander(event) {
+	onChangeCommentHander = (event) => {
 		this.setState({ comment: event.target.value });
-	}
+	};
 
-	onClickSendComment(event) {
+	onClickSendComment = () => {
 		const username = Meteor.user().profile.username;
 		const comment = this.state.comment;
 
@@ -63,154 +51,51 @@ export default class DetailPost extends Component {
 				if (err) {
 					alert(err);
 				} else {
-					// console.log('success!!!!!');
 				}
 			}
 		);
-	}
+	};
 
-	undolikeHnadler() {
-		this.setState({ doYouClickLike: false });
-	}
+	editModeHandler = () => {
+		this.props.editModeHandler();
+	};
 
-	handleTitle(event) {
-		this.setState({ title: event.target.value });
-	}
+	renderPostComment = () => {};
 
-	handleDescription(event) {
-		this.setState({ description: event.target.value });
-	}
-
-	handleContent(event) {
-		this.setState({ content: event.target.value });
-	}
-
-	onSubmit(e) {
-		e.preventDefault();
-		const title = this.state.title;
-		const description = this.state.description;
-		const content = this.state.content;
-
-		if (!title) {
-			console.log('제목없습니다.');
+	render() {
+		if (this.props.post.hearts) {
+			this.state.classifiedColor = this.props.post.hearts.includes(Meteor.userId());
 		}
 
-		const { post } = this.props;
-		console.log(post._id);
-		Meteor.call(
-			'editpost',
-			{
-				title: title,
-				description: description,
-				content: content,
-				id: post._id
-			},
-			(err, res) => {
-				if (err) {
-					alert(err);
-				} else {
-				}
-			}
-		);
-	}
-
-	renderHandler() {
-		this.setState({ doyouwanttoedit: true });
-	}
-
-	renderEdit() {
-		const { post } = this.props;
-
-		return (
-			<Container>
-				<Form>
-					<Form.Field>
-						<Label>제목222</Label>
-						<Input placeholder="제목" onChange={this.handleTitle} defaultValue={post.title} />
-					</Form.Field>
-					<Form.Field>
-						<Label>설명</Label>
-						<Input placeholder="설명" onChange={this.handleDescription} defaultValue={post.description} />
-					</Form.Field>
-
-					<Form.TextArea
-						onChange={this.handleContent}
-						label="내용"
-						placeholder="내용"
-						defaultValue={post.content}
-					/>
-					<Link to="/">
-						<Button type="send" onClick={this.onSubmit}>
-							수정하기
-						</Button>
-					</Link>
-					<Link to="/">
-						<Button type="cancel">취소</Button>
-					</Link>
-				</Form>
-			</Container>
-		);
-	}
-
-	renderDetailPost() {
-		const { post } = this.props;
-		const userid = Meteor.userId();
-		if (post.useridwhogaveheart) {
-			var classified = post.useridwhogaveheart.includes(userid);
-		}
-
-		if (classified) {
+		if (this.state.classifiedColor) {
 			this.state.color = 'red';
 		} else {
 			this.state.color = 'grey';
 		}
 
-		let Comments;
-		if (post.comments) {
-			Comments = post.comments.map((comment) => (
-				<PostComment comment={comment.comment} username={comment.username} key={shortid.generate()} />
-			));
-		}
+		this.props.post.comments.map((commnet) => <PostComment />);
 
 		return (
-			<Container>
-				<Form>
-					<Icon color={this.state.color} name="heart" size="huge" onClick={this.onClickLike} />
+			<Grid>
+				<Grid.Row>
+					<Header as="h1" attached="top">
+						TITLE<Icon color={this.state.color} name="heart" size="huge" onClick={this.onClickLike} />
+					</Header>
+				</Grid.Row>
+				<Grid.Row>
+					<Segment attached>{this.props.post.title}</Segment>
+				</Grid.Row>
+				<Grid.Row>
+					<Segment attached>{this.props.post.description}</Segment>
+				</Grid.Row>
+				<Grid.Row>
+					<Segment attached>{this.props.post.content}</Segment>
+				</Grid.Row>
 
-					<hr />
-					<Label>제목3</Label>
-
-					<Container>{post.title}</Container>
-
-					<Label>설명</Label>
-
-					<Container>{post.description}</Container>
-
-					<Label>내용</Label>
-
-					<Container>{post.content}</Container>
-
-					<Link to="/">
-						<Button type="cancel">돌아가기</Button>
-					</Link>
-
-					<Button type="edit" onClick={this.renderHandler}>
-						수정하기
-					</Button>
-				</Form>
-				<Container>
-					<Input onChange={this.onChangeCommentHander} />
-					<Button onClick={this.onClickSendComment} />
-				</Container>
-
-				{Comments}
-			</Container>
+				<Button type="edit" onClick={this.editModeHandler}>
+					수정하기
+				</Button>
+			</Grid>
 		);
-	}
-
-	render() {
-		console.log('this.state.doyouwanttoedit: ', this.state.doyouwanttoedit);
-
-		return this.state.doyouwanttoedit ? this.renderEdit() : this.renderDetailPost();
 	}
 }

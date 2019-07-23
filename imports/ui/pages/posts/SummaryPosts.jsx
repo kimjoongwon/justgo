@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Segment, Image, Container, Header, Button } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import SummaryPost from './SummaryPost';
 import shortid from 'shortid';
 import { NavLink } from 'react-router-dom';
@@ -18,6 +18,8 @@ export default class SummaryPosts extends Component {
 					title={post.title}
 					description={post.description}
 					content={post.content}
+					// likecount={post.userIdLikePost.length}
+					// commentcount={post.comments.length}
 					key={shortid.generate()}
 				/>
 			</NavLink>
@@ -25,6 +27,10 @@ export default class SummaryPosts extends Component {
 	}
 
 	render() {
-		return <Container>{this.renderSummaryPostPage()}</Container>;
+		return (
+			<Grid stackable style={{ maxwith: 100 }}>
+				{this.renderSummaryPostPage()}
+			</Grid>
+		);
 	}
 }

@@ -2,18 +2,26 @@ import { Meteor } from 'meteor/meteor';
 import { Posts } from './posts';
 
 Meteor.methods({
-	insertpost({ title, description, content, identity, useridwhowrotehtepost, useridwhogaveheart }) {
+	insertpost({ author, postAuthorId, title, description, content }) {
 		Posts.insert({
+			author: author,
+			postAuthorId: postAuthorId,
 			title: title,
 			description: description,
 			content: content,
-			identity: identity,
-			useridwhowrotehtepost: useridwhowrotehtepost,
-			useridwhogaveheart: useridwhogaveheart
+			comments: [
+				{
+					username: null,
+					message: null
+				}
+			]
 		});
 
-		Meteor.users.update(useridwhowrotehtepost, {
-			$set: { profile: { postidthatwrote: [ identity ] } }
+		// Meteor.users.update(postAuthorId, {
+		// 	$set: { profile: { myPosts: [ postAuthorId ] } }
+		// });
+		Meteor.users.update(postAuthorId, {
+			$addToSet: { myPosts: postAuthorId }
 		});
 	},
 	updatecomment({ postid, username, comment, date }) {
@@ -21,13 +29,11 @@ Meteor.methods({
 			{ _id: postid },
 			{
 				$addToSet: {
-					comments: [
-						{
-							username: username,
-							comment: comment,
-							date: date
-						}
-					]
+					comments: {
+						username: username,
+						comment: comment,
+						date: date
+					}
 				}
 			}
 		);

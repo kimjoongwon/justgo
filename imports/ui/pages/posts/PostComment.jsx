@@ -1,10 +1,10 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import { Button, Comment, Form, Header } from 'semantic-ui-react';
 
 export default class PostComment extends Component {
 	constructor(props) {
-        super(props)
-    }
+		super(props);
+	}
 
 	render() {
 		const { comment, username } = this.props;
@@ -15,7 +15,7 @@ export default class PostComment extends Component {
 					<Comment.Content>
 						<Comment.Author as="a">{username}</Comment.Author>
 						<Comment.Metadata>
-							<div></div>
+							<div />
 						</Comment.Metadata>
 						<Comment.Text>{comment}</Comment.Text>
 					</Comment.Content>
