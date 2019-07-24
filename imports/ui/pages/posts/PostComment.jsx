@@ -8,8 +8,7 @@ export default class PostComment extends Component {
 
 	render() {
 		const { comment, username } = this.props;
-		console.log('============================================');
-		console.log(comment, username);
+		
 		return (
 			<div>
 				<Form>

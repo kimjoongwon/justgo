@@ -21,16 +21,16 @@ export default class ChatWindow extends Component {
 	renderChatWindow() {
 		return (
 			<div class="chatwindow">
-				<Segment style={{ overflow: 'auto', maxHeight: '20em' }}>
+				<Segment style={{ overflow: 'auto', maxHeight: '40em' }}>
 					<Comment.Group>
 						<Header as="h3" dividing>
 							Wally Chat
 						</Header>
 						{
 							this.props.chats.map((chat) => {
-								console.log('chat: ', chat)
-								console.log('userId: ', Meteor.userId())
-								console.log('mine: ', chat.userId == Meteor.userId())
+								// console.log('chat: ', chat)
+								// console.log('userId: ', Meteor.userId())
+								// console.log('mine: ', chat.userId == Meteor.userId())
 								if (chat.userId == Meteor.userId()) {
 									return <ChatMessage mine name={chat.name} message={chat.messages} key={shortid.generate()} />
 								} else {

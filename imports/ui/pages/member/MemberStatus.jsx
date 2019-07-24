@@ -15,7 +15,6 @@ export default class MemberStatus extends Component {
 			this.props.user.profile.username,
 			this.props.user.emails[0].address
 		);
-
 		// console.log(this.props.user.status.online);
 	}
 
@@ -23,13 +22,7 @@ export default class MemberStatus extends Component {
 		// const online = this.props.status.online;
 		const user = this.props.user;
 
-		let status;
-		if (user.status) {
-			console.log(user.status);
-			status = user.status;
-		} else {
-			console.log(user.status);
-		}
+		
 
 		return (
 			<div>

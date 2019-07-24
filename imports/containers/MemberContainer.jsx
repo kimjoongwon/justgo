@@ -7,7 +7,7 @@ import MemberStatusInfo from '../ui/pages/member/MemberStatusInfo';
 const MemberContainer = withTracker(() => {
 	Meteor.subscribe('users').ready();
 	Meteor.subscribe('userStatus').ready();
-	console.log(Meteor.users.find({ 'status.online': true }, { fields: { status: 1 } }).fetch());
+	
 	return {
 		user: Meteor.user() || {},
 		users: Meteor.users.find().fetch() || {},

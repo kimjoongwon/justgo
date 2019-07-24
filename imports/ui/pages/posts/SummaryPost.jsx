@@ -9,7 +9,7 @@ export default class SummaryPosts extends Component {
 		super(props);
 		this.state = { IsClickEditButton: false };
 		this.renderSummaryPostPage = this.renderSummaryPostPage.bind(this);
-		console.log(this.props.posts);
+		
 	}
 	renderSummaryPostPage() {
 		// console.log(this.props.posts.hearts.length());
