@@ -3,15 +3,14 @@ import { Chats } from '../api/chats/chats';
 import { Posts } from '../api/posts/posts';
 import { Meteor } from 'meteor/meteor';
 import App from '../ui/App';
+import ModifyUserPw from '../ui/pages/modifyUserPw';
 
-const AppContainer = withTracker(() => {
+const UserInfoContainer = withTracker(() => {
 	Meteor.subscribe('users').ready();
 
 	return {
-		user: Meteor.userId() || {},
-		users: Meteor.users.find().fetch() || {},
 		currentUser: Meteor.user() || {}
 	};
-})(App);
+})(ModifyUserPw);
 
-export default AppContainer;
+export default UserInfoContainer;

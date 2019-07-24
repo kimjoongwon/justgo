@@ -1,20 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { Posts } from './posts';
 
+
+
+
 Meteor.methods({
-	insertpost({ author, postAuthorId, title, description, content }) {
+	insertpost({ author, postAuthorId, title, description, content, comments, hearts }) {
 		Posts.insert({
 			author: author,
 			postAuthorId: postAuthorId,
 			title: title,
 			description: description,
 			content: content,
-			comments: [
-				{
-					username: null,
-					message: null
-				}
-			]
+			comments: comments,
+			hearts: hearts
 		});
 
 		// Meteor.users.update(postAuthorId, {
@@ -40,7 +39,6 @@ Meteor.methods({
 	},
 
 	editpost({ title, description, content, id }) {
-		console.log('editpost method called');
 		Posts.update(
 			{ _id: id },
 			{
@@ -53,7 +51,6 @@ Meteor.methods({
 		);
 	},
 	likeuseridinsert({ useridwhogaveheart }) {
-		console.log('likeuseridinsert method called');
 		Posts.update(
 			{},
 			{

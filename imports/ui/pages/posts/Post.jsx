@@ -14,8 +14,8 @@ export default class Post extends Component {
 
 	render() {
 		const post = this.props.post;
-        console.log(post);
-    
+		console.log(post);
+
 		return (
 			<div>
 				{!this.state.editMode ? (

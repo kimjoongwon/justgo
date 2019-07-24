@@ -12,7 +12,8 @@ export default class DetailPost extends Component {
 		this.state = {
 			isRed: false,
 			color: 'grey',
-			classifiedColor: false
+			classifiedColor: false,
+			comment: ''
 		};
 
 		console.log(this.props.post, '디테일 포스트 실행됬어요!!!!!!!!!!!!!!!!!!!!!!');
@@ -60,7 +61,9 @@ export default class DetailPost extends Component {
 		this.props.editModeHandler();
 	};
 
-	renderPostComment = () => {};
+	renderPostComment = (event) => {
+		this.setState({ comment: event.target.value });
+	};
 
 	render() {
 		if (this.props.post.hearts) {
@@ -73,28 +76,46 @@ export default class DetailPost extends Component {
 			this.state.color = 'grey';
 		}
 
-		this.props.post.comments.map((commnet) => <PostComment />);
-
 		return (
-			<Grid>
-				<Grid.Row>
-					<Header as="h1" attached="top">
-						TITLE<Icon color={this.state.color} name="heart" size="huge" onClick={this.onClickLike} />
-					</Header>
-				</Grid.Row>
-				<Grid.Row>
-					<Segment attached>{this.props.post.title}</Segment>
-				</Grid.Row>
-				<Grid.Row>
-					<Segment attached>{this.props.post.description}</Segment>
-				</Grid.Row>
-				<Grid.Row>
-					<Segment attached>{this.props.post.content}</Segment>
-				</Grid.Row>
+			<Grid centered columns="equal">
+				<Grid.Column width={10}>
+					<Grid.Row>
+						<Header as="h1" attached="top">
+							TITLE<Icon color={this.state.color} name="heart" size="huge" onClick={this.onClickLike} />
+						</Header>
+					</Grid.Row>
+					<Grid.Row>
+						<Segment attached>{this.props.post.title}</Segment>
+					</Grid.Row>
+					<Grid.Row>
+						<Segment attached>{this.props.post.description}</Segment>
+					</Grid.Row>
+					<Grid.Row>
+						<Segment attached>{this.props.post.content}</Segment>
+					</Grid.Row>
 
-				<Button type="edit" onClick={this.editModeHandler}>
-					수정하기
-				</Button>
+					<Button type="edit" onClick={this.editModeHandler}>
+						수정하기
+					</Button>
+				</Grid.Column>
+				<Grid.Column width={3}>
+					{this.props.post.comments ? (
+						this.props.post.comments.map((comment) => (
+							<PostComment username={comment.username} comment={comment.comment} />
+						))
+					) : (
+						<div />
+					)}
+					<Form>
+						<Form.TextArea
+							label="About"
+							placeholder="Tell us more about you..."
+							onChange={this.renderPostComment}
+						/>
+
+						<Form.Button onClick={this.onClickSendComment}>Submit</Form.Button>
+					</Form>
+				</Grid.Column>
 			</Grid>
 		);
 	}

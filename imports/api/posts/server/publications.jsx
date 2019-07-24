@@ -8,3 +8,7 @@ Meteor.publish('post', function(id) {
 Meteor.publish('posts', function() {
 	return Posts.find();
 });
+
+Meteor.publish('posts.favorites', function post() {
+	return Posts.find({ hearts: this.userId });
+});

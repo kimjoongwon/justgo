@@ -8,7 +8,7 @@ const MemberContainer = withTracker(() => {
 	Meteor.subscribe('users').ready();
 	Meteor.subscribe('userStatus').ready();
 	return {
-		user: Meteor.userId() || {},
+		user: Meteor.user() || {},
 		users: Meteor.users.find().fetch() || {}
 	};
 })(MemberStatusInfo);

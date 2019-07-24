@@ -4,12 +4,13 @@ import { Label } from 'semantic-ui-react';
 export default class UserFavoritePostsPage extends Component {
 	constructor(props) {
 		super(props);
+		console.log('생성')
 	}
 
 	render() {
-		const ss = this.props;
+		const { favoritePosts } = this.props.favoritePosts;
 
-		console.log(ss);
+		console.log(favoritePosts);
 		return (
 			<div>
 				<Label>미완성</Label>

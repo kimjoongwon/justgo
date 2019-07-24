@@ -11,7 +11,7 @@ export default class MessageInput extends Component {
 
 	onMessageSubmit() {
 		const chats = this.props.chats;
-		console.log(chats);
+	
 		const messages = this.state.message;
 		Meteor.call(
 			'insertchat',

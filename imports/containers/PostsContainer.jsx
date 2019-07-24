@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Posts } from '../api/posts/posts';
-import SummaryPosts from '../ui/pages/posts/SummaryPosts';
+import SummaryPosts from '../ui/pages/posts/SummaryPost';
 
 const PostsContainer = withTracker(({}) => {
 	Meteor.subscribe('posts');

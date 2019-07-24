@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Header, Button, Label, Menu, Container, Divider, Grid } from 'semantic-ui-react';
+import { Header, Button, Label, Menu, Container, Divider, Grid, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-
+import { Meteor } from 'meteor/meteor';
 export default class MainHeader extends Component {
 	constructor(props) {
 		super(props);
@@ -43,8 +43,9 @@ export default class MainHeader extends Component {
 
 	logoutRender() {
 		const user = this.props.user;
+		const currentUser = Meteor.user();
 		const phone = this.props.phone;
-
+		console.log(user);
 		return (
 			<Grid columns={3}>
 				<Grid.Column>
@@ -63,8 +64,11 @@ export default class MainHeader extends Component {
 						</Header>
 					</Link>
 				</Grid.Column>
-				<Grid.Column textAlign='center'>
+				<Grid.Column textAlign="center">
 					<Button onClick={this.logoutHandle}>로그아웃</Button>
+					<Link to="/modifyUserPw">
+						<Segment>{currentUser.profile.username}</Segment>
+					</Link>
 				</Grid.Column>
 			</Grid>
 		);

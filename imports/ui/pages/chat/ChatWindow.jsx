@@ -20,17 +20,20 @@ export default class ChatWindow extends Component {
 
 	renderChatWindow() {
 		return (
-			<Segment>
-				<Comment.Group>
-					<Header as="h3" dividing>
-						Wally Chat
-					</Header>
-					{this.props.chats.map((chat) => (
-						<ChatMessage name={chat.name} message={chat.messages} key={shortid.generate()} />
-					))}
-				</Comment.Group>
+			<div class="chatwindow">
+				<Segment style={{ overflow:'auto',maxHeight:'20em' }}>
+					<Comment.Group>
+						<Header as="h3" dividing>
+							Wally Chat
+						</Header>
+						{this.props.chats.map((chat) => (
+							<ChatMessage name={chat.name} message={chat.messages} key={shortid.generate()} />
+						))}
+					</Comment.Group>
+				</Segment>
+
 				<MessageInput />
-			</Segment>
+			</div>
 		);
 	}
 

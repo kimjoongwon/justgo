@@ -13,25 +13,20 @@ import MemberContainer from '../containers/MemberContainer';
 import ChatsContainer from '../containers/ChatsContainer';
 import { Grid, Segment } from 'semantic-ui-react';
 import faker from 'faker';
+import modifyUserPw from '../ui/pages/modifyUserPw';
+import FavoritePageContainer from '../ui/pages/posts/UserFavoritePostsPage';
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
-
-		// const ss = _.times(20, () => ({
-		// 	title: faker.company.sentences,
-		// 	summary: faker.lorem.paragraphs(),
-		// 	content: faker.lorem.paragraphs()
-		// }));
-
-		// console.log(ss);
 	}
 
 	render() {
-		const { user, phone } = this.props;
+		const { currentUser, phone, users } = this.props;
+		console.log(currentUser);
 		return (
 			<BrowserRouter>
-				<MainHeader user={user} phone={phone} />
+				<MainHeader user={currentUser} user={users} phone={phone} />
 				<Route
 					exact
 					path="/"
@@ -54,8 +49,9 @@ export default class App extends Component {
 				<Route path="/blogwrite" component={PostWrite} />
 				<Route path="/join" component={Join} />
 				<Route path="/posts/:id" component={PostContainer} />
-				<Route path="/favoriteposts" component={IGaveYouFavoritePostsPage} />
-				<Route path="/dashboard" render={(props) => <UserFavoritePostsPage {...props} />} />
+				<Route path="/favoriteposts" component={FavoritePageContainer} />
+				<Route path="/modifyuserpw" component={modifyUserPw} />
+				/>
 			</BrowserRouter>
 		);
 	}

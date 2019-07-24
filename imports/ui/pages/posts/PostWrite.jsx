@@ -55,13 +55,7 @@ export class PostWrite extends Component {
 				content: content,
 				hearts: [],
 				createAt: new Date(),
-				comments: [
-					{
-						username: '',
-						comment: '',
-						date: ''
-					}
-				]
+				comments: []
 			},
 			(err, res) => {
 				if (err) {
