@@ -10,6 +10,7 @@ Meteor.methods({
 		}).validate({ name, messages });
 
 		Chats.insert({
+			userId: this.userId,
 			name: name,
 			messages: messages
 		});

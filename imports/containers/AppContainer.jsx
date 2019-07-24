@@ -6,11 +6,12 @@ import App from '../ui/App';
 
 const AppContainer = withTracker(() => {
 	Meteor.subscribe('users').ready();
+	Meteor.subscribe('currentuser');
 
 	return {
 		user: Meteor.userId() || {},
 		users: Meteor.users.find().fetch() || {},
-		currentUser: Meteor.user() || {}
+		currentUser: Meteor.user()
 	};
 })(App);
 

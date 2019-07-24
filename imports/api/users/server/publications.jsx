@@ -9,3 +9,9 @@ Meteor.publish('user.profile', function() {
 Meteor.publish('users', function() {
 	return Meteor.users.find();
 });
+Meteor.publish('currentuser', function() {
+	return Meteor.user();
+});
+Meteor.publish('userStatus', function() {
+	return Meteor.users.find({ 'status.online': true }, { fields: status });
+});

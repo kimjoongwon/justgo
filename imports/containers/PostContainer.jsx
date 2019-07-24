@@ -6,9 +6,8 @@ import Post from '../ui/pages/posts/Post';
 const PostContainer = withTracker(({ match }) => {
 	const { id } = match.params;
 
-
 	const isloading = Meteor.subscribe('post', id).ready();
-	console.log(isloading, '==========콘테이너는 실행 ===============');
+
 	post = Posts.find().fetch();
 
 	return {

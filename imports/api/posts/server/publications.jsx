@@ -12,3 +12,11 @@ Meteor.publish('posts', function() {
 Meteor.publish('posts.favorites', function post() {
 	return Posts.find({ hearts: this.userId });
 });
+
+Meteor.publish('posts.detailpost', function(id) {
+	return Posts.find({ _id: id });
+});
+
+Meteor.publish('currentUser', function() {
+	return Meteor.user();
+});

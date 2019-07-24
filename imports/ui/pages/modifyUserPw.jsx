@@ -12,6 +12,7 @@ export default class ModifyUserPw extends Component {
 			oldPassword: '',
 			newPassword: ''
 		};
+		console.log(this.props.currentUser);
 	}
 
 	handleChangePassword = () => {
@@ -39,7 +40,6 @@ export default class ModifyUserPw extends Component {
 	};
 
 	render() {
-		const user = Meteor.user();
 		return (
 			<Grid textAlign="center" style={{ height: 800 }} verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
@@ -48,11 +48,11 @@ export default class ModifyUserPw extends Component {
 					</Header>
 					<Form size="large">
 						<Segment stacked>
-							<Message fluid content={user.emails[0].address} />
+							<Message fluid content={this.props.currentUser.emails[0].address} />
 
-							<Message content={user.profile.phone} />
+							<Message content={this.props.currentUser.profile.phone} />
 
-							<Message content={user.profile.username} />
+							<Message content={this.props.currentUser.profile.username} />
 
 							<Form.Input type="password" placeholder="비밀번호를 입력하세요" onChange={this.handleoldPassword} />
 

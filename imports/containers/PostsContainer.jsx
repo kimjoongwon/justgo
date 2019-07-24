@@ -6,7 +6,7 @@ import SummaryPosts from '../ui/pages/posts/SummaryPost';
 const PostsContainer = withTracker(({}) => {
 	Meteor.subscribe('posts');
 	posts = Posts.find().fetch();
-	console.log(posts);
+
 	return {
 		posts: Posts.find().fetch()
 	};

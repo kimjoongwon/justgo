@@ -25,6 +25,8 @@ export default class MemberStatusInfo extends Component {
 	}
 
 	renderMemberStatus() {
+		console.log(Meteor.user());
+
 		return (
 			<List celled>
 				{this.props.users.map((user) => (

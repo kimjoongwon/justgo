@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image, List } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
 
 export default class MemberStatus extends Component {
 	constructor(props) {
@@ -8,23 +9,35 @@ export default class MemberStatus extends Component {
 	}
 
 	onClickChatMember(e) {
-		this.props.memberinfohandler(e,
+		this.props.memberinfohandler(
+			e,
 			this.props.user.profile.phone,
 			this.props.user.profile.username,
 			this.props.user.emails[0].address
 		);
-		console.log(this.props.user.profile.phone);
+
+		// console.log(this.props.user.status.online);
 	}
 
 	render() {
-		const username = this.props.user.profile.username;
+		// const online = this.props.status.online;
+		const user = this.props.user;
+
+		let status;
+		if (user.status) {
+			console.log(user.status);
+			status = user.status;
+		} else {
+			console.log(user.status);
+		}
+
 		return (
 			<div>
 				<List.Item onClick={this.onClickChatMember}>
 					<Image avatar src="https://react.semantic-ui.com/images/avatar/small/rachel.png" />
 					<List.Content>
-						<List.Header>{username}</List.Header>
-						<List.Description>1시간 전에 로그인</List.Description>
+						<List.Header>{user.profile.username}</List.Header>
+						<List.Description>{user.status && user.status.online ? 'online' : 'offline'}</List.Description>
 					</List.Content>
 				</List.Item>
 			</div>

@@ -42,10 +42,6 @@ export default class MainHeader extends Component {
 	}
 
 	logoutRender() {
-		const user = this.props.user;
-		const currentUser = Meteor.user();
-		const phone = this.props.phone;
-		console.log(user);
 		return (
 			<Grid columns={3}>
 				<Grid.Column>
@@ -67,7 +63,7 @@ export default class MainHeader extends Component {
 				<Grid.Column textAlign="center">
 					<Button onClick={this.logoutHandle}>로그아웃</Button>
 					<Link to="/modifyUserPw">
-						<Segment>{currentUser.profile.username}</Segment>
+						<Segment>{this.props.currentUser.profile.username}</Segment>
 					</Link>
 				</Grid.Column>
 			</Grid>
@@ -75,6 +71,6 @@ export default class MainHeader extends Component {
 	}
 
 	render() {
-		return !Meteor.userId() ? this.loginjoinMenuRender() : this.logoutRender();
+		return !this.props.currentUser ? this.loginjoinMenuRender() : this.logoutRender();
 	}
 }
