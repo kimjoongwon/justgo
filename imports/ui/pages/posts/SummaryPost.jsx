@@ -16,11 +16,11 @@ export default class SummaryPosts extends Component {
 			if (Meteor.userId()) {
 				return (
 					<NavLink to={`/posts/${post._id}`} key={post._id} class="post">
-						<Card>
+						<Card style={{ color: 'black' }}>
 							<Card.Content>
 								<Card.Header>{post.title}</Card.Header>
 
-								<Card.Content>{post.content}</Card.Content>
+								<Card.Content>{post.description}</Card.Content>
 							</Card.Content>
 							<Segment>
 								<Icon color="grey" name="heart" />
@@ -38,7 +38,7 @@ export default class SummaryPosts extends Component {
 						<Card.Content>
 							<Card.Header>{post.title}</Card.Header>
 
-							<Card.Content>{post.content}</Card.Content>
+							<Card.Content>{post.description}</Card.Content>
 						</Card.Content>
 						<Segment>
 							<Icon color="grey" name="heart" />

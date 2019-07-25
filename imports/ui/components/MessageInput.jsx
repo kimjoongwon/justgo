@@ -12,12 +12,13 @@ export default class MessageInput extends Component {
 	onMessageSubmit() {
 		const chats = this.props.chats;
 
-		const messages = this.state.message;
+		const message = this.state.message;
 		Meteor.call(
 			'insertchat',
 			{
+				userId: Meteor.userId,
 				name: Meteor.user().profile.username,
-				messages: messages
+				message: message
 			},
 			(err, res) => {
 				if (err) {
@@ -34,6 +35,7 @@ export default class MessageInput extends Component {
 	}
 
 	render() {
+		console.log(new Date());
 		return (
 			<Form>
 				<Form.Input iconPosition="left" placeholder="message" type="text" onChange={this.handleMessage} />

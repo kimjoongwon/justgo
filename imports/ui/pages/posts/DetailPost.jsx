@@ -11,7 +11,8 @@ import {
 	Header,
 	Segment,
 	Container,
-	Message
+	Message,
+	Divider
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Posts } from '../../../api/posts/posts';
@@ -77,9 +78,6 @@ export default class DetailPost extends Component {
 	};
 
 	render() {
-		if (!Meteor.user().userId == post.postAuthorId) {
-			<Redirect to="/" />;
-		}
 		if (this.props.post.hearts) {
 			this.state.classifiedColor = this.props.post.hearts.includes(Meteor.userId());
 		}
@@ -91,52 +89,45 @@ export default class DetailPost extends Component {
 		}
 
 		return (
-			<Grid centered columns="equal">
+			<Grid stretched columns="equal">
 				<Grid.Column width={10}>
-					<Card fluid>
-						<Card.Header as="h1" textAlign="center">
-							{this.props.post.title}
-							<Icon
-								corner="bottom right"
-								color={this.state.color}
-								name="heart"
-								size="large"
-								onClick={this.onClickLike}
-							/>
-						</Card.Header>
-						<Card.Content>{this.props.post.description}</Card.Content>
-						<Card.Content>
-							<Image src="https://react.semantic-ui.com/images/wireframe/image.png" fluid />
-						</Card.Content>
-						<Card.Content>
+					<Segment>
+						<Segment basic>
+							<Header as="h1" textAlign="center">
+								{this.props.post.title}
+							</Header>
+							<Divider hidden />
+							<p>{this.props.post.description}</p>
+
+							<Divider hidden />
 							<p>{this.props.post.content}</p>
-						</Card.Content>
-						<Card.Content>
-							<Button primary floated="right" type="edit" onClick={this.editModeHandler}>
-								수정하기
-							</Button>
-						</Card.Content>
-						<Card.Content textAlign="center">
-							<Card
-								centered
-								image="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-								header={this.props.post.author}
-								meta="San Fansisco"
-							/>
-						</Card.Content>
-					</Card>
+							<Segment basic>
+								<Button primary floated="right" onClick={this.editModeHandler}>
+									수정하기
+								</Button>
+							</Segment>
+						</Segment>
+						<Segment textAlign="center" basic>
+							<Icon name="user" size="big" />
+						</Segment>
+						<Segment basic textAlign="center">
+							{this.props.post.author}
+						</Segment>
+					</Segment>
 				</Grid.Column>
 				<Grid.Column width={3}>
-					{this.props.post.comments ? (
-						this.props.post.comments.map((comment) => (
-							<PostComment username={comment.username} comment={comment.comment} />
-						))
-					) : (
-						<div />
-					)}
+					<Icon
+						corner="bottom right"
+						color={this.state.color}
+						name="heart"
+						size="huge"
+						onClick={this.onClickLike}
+					/>
+				</Grid.Column>
+				<Grid.Column>
 					<Form>
 						<Form.TextArea
-							label="About"
+							label="Comments"
 							placeholder="Tell us more about you..."
 							onChange={this.renderPostComment}
 						/>
@@ -144,6 +135,13 @@ export default class DetailPost extends Component {
 						<Form.Button primary onClick={this.onClickSendComment}>
 							Submit
 						</Form.Button>
+						{this.props.post.comments ? (
+							this.props.post.comments.map((comment) => (
+								<PostComment username={comment.username} comment={comment.comment} />
+							))
+						) : (
+							[]
+						)}
 					</Form>
 				</Grid.Column>
 			</Grid>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Label, Grid, Segment, List, Icon, CardContent, Card } from 'semantic-ui-react';
+import { Label, Grid, Segment, List, Icon, CardContent, Header, Card } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 export default class UserFavoritePost extends Component {
@@ -16,7 +16,6 @@ export default class UserFavoritePost extends Component {
 						<Card.Content>
 							<Card.Header>{favoritePost.title}</Card.Header>
 							<Card.Description>{favoritePost.description}</Card.Description>
-							<Card.Content>{favoritePost.content}</Card.Content>
 						</Card.Content>
 
 						<Segment>
@@ -33,7 +32,14 @@ export default class UserFavoritePost extends Component {
 	}
 
 	render() {
-		return <Grid divided>{this.renderFavoritePosts()}</Grid>;
+		return (
+			<div>
+				<Header as="h2" textAlign="center">
+					Favorite
+				</Header>
+				<Grid divided>{this.renderFavoritePosts()}</Grid>
+			</div>
+		);
 	}
 }
 
