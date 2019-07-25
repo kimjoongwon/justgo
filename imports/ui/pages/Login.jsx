@@ -46,7 +46,9 @@ export default class Login extends Component {
 
 		Meteor.loginWithPassword(email, password, (err) => {
 			if (!err) {
+				alert('로그인 완료');
 			} else {
+				alert(err);
 			}
 
 			this.props.history.push('/');
@@ -58,7 +60,7 @@ export default class Login extends Component {
 			<Grid textAlign="center" style={{ height: 800 }} verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as="h2" textAlign="center">
-							계정에 로그인 하세요.
+						계정에 로그인 하세요.
 					</Header>
 					<Form size="large">
 						<Segment stacked>

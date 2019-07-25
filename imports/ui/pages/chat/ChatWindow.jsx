@@ -21,27 +21,33 @@ export default class ChatWindow extends Component {
 	renderChatWindow() {
 		return (
 			<div class="chatwindow">
-				<Segment style={{ overflow: 'auto', maxHeight: '40em' }}>
-					<Comment.Group>
-						<Header as="h3" dividing>
-							Wally Chat
-						</Header>
-						{
-							this.props.chats.map((chat) => {
-								// console.log('chat: ', chat)
-								// console.log('userId: ', Meteor.userId())
-								// console.log('mine: ', chat.userId == Meteor.userId())
-								if (chat.userId == Meteor.userId()) {
-									return <ChatMessage mine name={chat.name} message={chat.messages} key={shortid.generate()} />
-								} else {
-									return <ChatMessage name={chat.name} message={chat.messages} key={shortid.generate()} />
-								}
-							})
-						}
-					</Comment.Group>
-				</Segment>
-
-				<MessageInput />
+				<Comment.Group>
+					<Header as="h3" dividing>
+						Wally Chat
+					</Header>
+					<div class="chatwindow" style={{ overflow: 'auto', maxHeight: '30em' }}>
+						{this.props.chats.map((chat) => {
+							// console.log('chat: ', chat)
+							// console.log('userId: ', Meteor.userId())
+							// console.log('mine: ', chat.userId == Meteor.userId())
+							if (chat.userId == Meteor.userId()) {
+								return (
+									<ChatMessage
+										mine
+										name={chat.name}
+										message={chat.messages}
+										key={shortid.generate()}
+									/>
+								);
+							} else {
+								return (
+									<ChatMessage name={chat.name} message={chat.messages} key={shortid.generate()} />
+								);
+							}
+						})}
+					</div>
+					<MessageInput />
+				</Comment.Group>
 			</div>
 		);
 	}

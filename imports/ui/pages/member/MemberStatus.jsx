@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, List } from 'semantic-ui-react';
-import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
 
 export default class MemberStatus extends Component {
 	constructor(props) {
@@ -21,8 +21,22 @@ export default class MemberStatus extends Component {
 	render() {
 		// const online = this.props.status.online;
 		const user = this.props.user;
+		const yes = user.status && user.status.lastLogin ? user.status.lastLogin.date : '';
+		console.log(user.status);
+		if (!user.status) {
+			return null;
+		}
+		if (!user.status.lastLogin.date) {
+			return null;
+		}
 
-		
+		// if(!user.status.date) {
+		// 	return null;
+		// }
+
+		const date = user.status.lastLogin.date;
+		let lastLogin = moment().startOf('hour').fromNow(date); // 14 minutes ago
+		console.log(lastLogin);
 
 		return (
 			<div>
@@ -30,7 +44,10 @@ export default class MemberStatus extends Component {
 					<Image avatar src="https://react.semantic-ui.com/images/avatar/small/rachel.png" />
 					<List.Content>
 						<List.Header>{user.profile.username}</List.Header>
-						<List.Description>{user.status && user.status.online ? 'online' : 'offline'}</List.Description>
+						<List.Description>
+							{user.status.online ? 'online' : lastLogin}
+							{/* {user.status && user.status.lastLogin ? 'offline' : 'online'} */}
+						</List.Description>
 					</List.Content>
 				</List.Item>
 			</div>

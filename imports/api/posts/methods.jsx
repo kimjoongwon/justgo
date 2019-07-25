@@ -1,9 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Posts } from './posts';
 
-
-
-
 Meteor.methods({
 	insertpost({ author, postAuthorId, title, description, content, comments, hearts }) {
 		Posts.insert({

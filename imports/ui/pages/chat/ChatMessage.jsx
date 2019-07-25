@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Label, Comment } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
 
 export default class ChatMessage extends Component {
 	constructor(props) {
@@ -30,11 +31,9 @@ export default class ChatMessage extends Component {
 					<Comment.Author as="a">{this.props.name}</Comment.Author>
 
 					<Comment.Text>{this.props.message}</Comment.Text>
-					<Comment.Text>
-						<div>Today at 5:42PM</div>
-					</Comment.Text>
+
 					<Comment.Actions>
-						<Comment.Action>Reply</Comment.Action>
+						<div>Today at 5:42PM</div>
 					</Comment.Actions>
 				</Comment.Content>
 			</Comment>

@@ -1,14 +1,14 @@
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { Posts } from "../api/posts/posts";
-import UserFavoritePostsPage from "../ui/pages/posts/UserFavoritePostsPage";
+import UserFavoritePost from "../ui/pages/posts/UserFavoritePost";
 
-const FavoritePageContainer = withTracker(({}) => {
+const FavoriteContainer = withTracker(({}) => {
   Meteor.subscribe("posts.favorites");
 
   return {
     favoritePosts: Posts.find().fetch() || {}
   };
-})(UserFavoritePostsPage);
+})(UserFavoritePost);
 
-export default FavoritePageContainer;
+export default FavoriteContainer;
