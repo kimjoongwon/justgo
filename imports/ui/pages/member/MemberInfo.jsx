@@ -11,7 +11,7 @@ export default class MemberInfo extends Component {
 		const { username, email, phone } = this.props;
 		return (
 			<Card centered>
-				<Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" wrapped ui={false} />
+				<Image src="http://img.ezmember.co.kr/cache/board/2013/07/03/d196e195b32666226d8c010363e6e97b.jpg" wrapped ui={false} />
 				<Card.Content>
 					<Card.Header>{username}</Card.Header>
 					<Card.Meta>

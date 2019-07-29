@@ -30,7 +30,7 @@ export default class App extends Component {
 					path="/"
 					render={() => (
 						<div>
-							<Segment.Group horizontal>
+							<Segment.Group centered horizontal>
 								<Segment>
 									<MemberContainer />
 								</Segment>

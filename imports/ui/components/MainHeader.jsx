@@ -21,7 +21,7 @@ export default class MainHeader extends Component {
 				<Grid.Column />
 				<Grid.Column>
 					<Header as="h1" textAlign="center">
-						<Link to="/">ToyProject</Link>
+						<Link to="/">Wally Toy Project</Link>
 					</Header>
 				</Grid.Column>
 				<Grid.Column textAlign="center">
@@ -57,7 +57,7 @@ export default class MainHeader extends Component {
 				<Grid.Column>
 					<Link to="/">
 						<Header as="h1" color="blue" textAlign="center">
-							ToyProject
+							Wally Toy Project
 						</Header>
 					</Link>
 				</Grid.Column>

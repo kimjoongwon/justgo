@@ -25,7 +25,7 @@ export default class ChatWindow extends Component {
 					<Header as="h3" dividing>
 						Wally Chat
 					</Header>
-					<div class="chatwindow" style={{ overflow: 'auto', maxHeight: '30em' }}>
+					<div class="chatwindow" style={{ overflow: 'auto', maxHeight: '40em'  }}>
 						{this.props.chats.map((chat) => {
 							// console.log('chat: ', chat)
 							// console.log('userId: ', Meteor.userId())
@@ -35,13 +35,14 @@ export default class ChatWindow extends Component {
 									<ChatMessage
 										mine
 										name={chat.name}
-										message={chat.messages}
+										message={chat.message}
+										createAt={chat.createAt}
 										key={shortid.generate()}
 									/>
 								);
 							} else {
 								return (
-									<ChatMessage name={chat.name} message={chat.messages} key={shortid.generate()} />
+									<ChatMessage name={chat.name} message={chat.message} key={shortid.generate()} />
 								);
 							}
 						})}

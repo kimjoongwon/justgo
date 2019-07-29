@@ -21,8 +21,7 @@ export default class MemberStatus extends Component {
 	render() {
 		// const online = this.props.status.online;
 		const user = this.props.user;
-		const yes = user.status && user.status.lastLogin ? user.status.lastLogin.date : '';
-		console.log(user.status);
+
 		if (!user.status) {
 			return null;
 		}
@@ -33,10 +32,10 @@ export default class MemberStatus extends Component {
 		// if(!user.status.date) {
 		// 	return null;
 		// }
-
-		const date = user.status.lastLogin.date;
-		let lastLogin = moment().startOf('hour').fromNow(date); // 14 minutes ago
-		console.log(lastLogin);
+		let currentDate = new Date();
+		let date = user.status.lastLogin.date;
+		let lastLogin = moment().startOf('day').fromNow(); // 14 minutes ago
+		// console.log(lastLogin);
 
 		return (
 			<div>
@@ -45,7 +44,7 @@ export default class MemberStatus extends Component {
 					<List.Content>
 						<List.Header>{user.profile.username}</List.Header>
 						<List.Description>
-							{user.status.online ? 'online' : lastLogin}
+							{user.status.online ? 'online' : lastLogin + '(offline)'}
 							{/* {user.status && user.status.lastLogin ? 'offline' : 'online'} */}
 						</List.Description>
 					</List.Content>

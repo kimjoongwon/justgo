@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { Form, Label, Input, Button, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import { Redirect } from 'react-router-dom';
-import { timingSafeEqual } from 'crypto';
+
 
 export default class ModifyUserPw extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			oldPassword: '',
-      newPassword: '',
-      newPasswordConfirm:""
+			newPassword: '',
+			newPasswordConfirm: ''
 		};
 	}
 
@@ -21,20 +20,24 @@ export default class ModifyUserPw extends Component {
 				alert('비밀번호 일치하지 않습니다.');
 			} else {
 				alert('비밀번호 변경 완료!!!');
+				this.props.history.push('/')
 			}
 		});
 	};
 
-	handleoldPassword = (event) => {
+	handleOldPassword = (event) => {
 		this.setState({ oldPassword: event.target.value });
+		console.log(this.state.oldPassword);
 	};
 
 	handleNewPassword = (event) => {
 		this.setState({ newPassword: event.target.value });
-  };
-  handleNewPasswordConfirm = (event) => {
-    this.setState({ newPasswordConfirm: event.target.value });
-  }
+		console.log(this.state.newPassword);
+	};
+	handleNewPasswordConfirm = (event) => {
+		this.setState({ newPasswordConfirm: event.target.value });
+		console.log(this.state.newPasswordConfirm);
+	};
 
 	handleLogout = () => {
 		Meteor.logout();
@@ -43,7 +46,7 @@ export default class ModifyUserPw extends Component {
 
 	render() {
 		return (
-			<Grid textAlign="center" style={{ height: 800 }} verticalAlign="middle">
+			<Grid textAlign="center" style={{ height: 1000 }} verticalAlign="middle">
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as="h2" textAlign="center">
 						회원정보
@@ -56,14 +59,26 @@ export default class ModifyUserPw extends Component {
 
 							<Message content={this.props.currentUser.profile.username} />
 
-              <Form.Input type="password" placeholder="현재 비밀번호를 입력하세요." onChange={this.handleOldPassword} />
-							
-              <Form.Input type="password" placeholder="변경할 비밀번호를 입력하세요." onChange={this.handleNewPassword} />
+							<Form.Input
+								type="password"
+								placeholder="현재 비밀번호를 입력하세요."
+								onChange={this.handleOldPassword}
+							/>
 
-							<Form.Input type="password" placeholder="변경할 비밀번호를 한번 더 입력하세요." onChange={this.handleNewPasswordConfirm} />
+							<Form.Input
+								type="password"
+								placeholder="변경할 비밀번호를 입력하세요."
+								onChange={this.handleNewPassword}
+							/>
+
+							<Form.Input
+								type="password"
+								placeholder="변경할 비밀번호를 한번 더 입력하세요."
+								onChange={this.handleNewPasswordConfirm}
+							/>
 
 							<Button fluid size="large" placeholder="회원가입" onClick={this.handleChangePassword}>
-								비밀번호 수정하기
+								비밀번호 변경하기
 							</Button>
 							<Button fluid size="large" placeholder="로그아웃하기" onClick={this.handleLogout}>
 								로그아웃 하기
@@ -75,41 +90,3 @@ export default class ModifyUserPw extends Component {
 		);
 	}
 }
-
-// <Grid textAlign="center" style={{ hÎeight: '100vh' }} verticalAlign="middle">
-// 	<Grid.Column style={{ maxWidth: 450 }}>
-// 		<Header as="h2" color="teal" textAlign="center">
-// 			<Image src="/logo.png" /> Log-in to your account
-// 		</Header>
-// 		<Form size="large">
-// 			<Segment stacked>
-// 				<Form.Input
-// 					fluid
-// 					icon="user"
-// 					iconPosition="left"
-// 					placeholder="E-mail address"
-// 					onChange={this.handleEmail}
-// 				/>
-// 				<Form.Input
-// 					fluid
-// 					icon="lock"
-// 					iconPosition="left"
-// 					placeholder="Password"
-// 					type="password"
-// 					onChange={this.handlePassword}
-// 				/>
-
-// 				<Button color="teal" fluid size="large" onClick={this.onSubmit}>
-// 					Login
-// 				</Button>
-// 			</Segment>
-// 		</Form>
-// 		<Message>
-// 			New to us? <a href="#">Sign Up</a>
-// 		</Message>
-// 		<List>
-// 			{/* <List.Item>{this.state.useremail}</List.Item> */}
-// 			<List.Item>{this.state.date}</List.Item>
-// 		</List>
-// 	</Grid.Column>
-// </Grid>;

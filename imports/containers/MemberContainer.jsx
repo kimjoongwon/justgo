@@ -6,12 +6,12 @@ import MemberStatusInfo from '../ui/pages/member/MemberStatusInfo';
 
 const MemberContainer = withTracker(() => {
 	Meteor.subscribe('users').ready();
-	Meteor.subscribe('userStatus').ready();
+	// Meteor.subscribe('userStatus').ready();
 	
 	return {
 		user: Meteor.user() || {},
 		users: Meteor.users.find().fetch() || {},
-		statusUsers: Meteor.users.find({ 'status.online': true }, { fields: { status: 1 } }).fetch()
+		// statusUsers: Meteor.users.find({ 'status.online': true }, { fields: { status: 1 } }).fetch()
 	};
 })(MemberStatusInfo);
 

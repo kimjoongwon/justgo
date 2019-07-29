@@ -32,6 +32,7 @@ export default class MemberStatusInfo extends Component {
 	}
 
 	renderMemberStatus() {
+		
 		return (
 			<List celled style={{ overflow: 'auto', maxHeight: '40em' }}>
 				{this.props.users.map((user) => (

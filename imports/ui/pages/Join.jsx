@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Label, Input, Button, Grid, Header, Segment } from 'semantic-ui-react';
-
+import { Form, Button, Grid, Header, Segment } from 'semantic-ui-react';
 import { Accounts } from 'meteor/accounts-base';
-import { Link, Redirect } from 'react-router-dom';
 
 export default class Join extends Component {
 	constructor(props) {
@@ -11,7 +9,6 @@ export default class Join extends Component {
 			email: '',
 			password: '',
 			passwordConfirm: '',
-			errors: {},
 			username: '',
 			phone: ''
 		};
@@ -22,6 +19,24 @@ export default class Join extends Component {
 		this.handlePasswordConfirm = this.handlePasswordConfirm.bind(this);
 		this.handleName = this.handleName.bind(this);
 		this.handlePhone = this.handlePhone.bind(this);
+		this.doesPasswordMatch = this.doesPasswordMatch.bind(this);
+		this.renderFeedbackMessage = this.renderFeedbackMessage.bind(this);
+	}
+
+	doesPasswordMatch() {
+		const { password, passwordConfirm } = this.state;
+		return password === passwordConfirm;
+	}
+
+	renderFeedbackMessage() {
+		const { passwordConfirm } = this.state;
+
+		if (passwordConfirm) {
+			if (!this.doesPasswordMatch()) {
+				alert('패스워드가 일치하지 않습니다.');
+				return true;
+			}
+		}
 	}
 
 	handleName(event) {
@@ -43,54 +58,35 @@ export default class Join extends Component {
 		event.preventDefault();
 		const email = this.state.email;
 		const password = this.state.password;
-		const passwordConfirm = this.state.passwordConfirm;
-		// const postidthatgaveheart = this.state.postidthatgaveheart;
 		const phone = this.state.phone;
 		const username = this.state.username;
-		// const commentidthatwrote = this.state.commentidthatwrote;
-		// const postidthatwrote = this.state.postidthatwrote;
 		const profile = {
 			username: username,
 			phone: phone
 		};
 
-		const errors = {};
-
-		if (!email) {
-			errors.email = '이메일 입력해주세요.';
-		}
-		if (!password) {
-			errors.password = '비밀번호를 입력해주세요.';
-		}
-		if (passwordConfirm != password) {
-			errors.passwordConfirm = '비밀번호가 같지 않습니다.';
+		if (this.renderFeedbackMessage()) {
+			return;
 		}
 
-		console.log(errors);
-
-		this.setState({ errors: errors });
-		if (errors) {
-			Accounts.createUser(
-				{
-					email,
-					password,
-					profile
-				},
-				(err) => {
-					if (err) {
-						alert(err);
-					} else {
-						this.props.history.push('/');
-					}
+		Accounts.createUser(
+			{
+				email,
+				password,
+				profile
+			},
+			(err) => {
+				if (err) {
+					alert(err);
+				} else {
+					this.props.history.push('/');
 				}
-			);
-		} else {
-			alert(errors.email, errors.password, errors.passwordConfirm);
-		}
+			}
+		);
 	}
 
 	handlePasswordConfirm(event) {
-		this.setState({ handlePasswordConfirm: event.target.value });
+		this.setState({ passwordConfirm: event.target.value });
 	}
 
 	render() {

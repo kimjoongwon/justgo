@@ -91,7 +91,7 @@ export default class DetailPost extends Component {
 		return (
 			<Grid stretched columns="equal">
 				<Grid.Column width={10}>
-					<Segment>
+					<Segment style={{ whiteSpace: 'pre-wrap' }}>
 						<Segment basic>
 							<Header as="h1" textAlign="center">
 								{this.props.post.title}

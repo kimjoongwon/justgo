@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Container } from 'semantic-ui-react';
-
+import moment from 'moment';
 export default class MessageInput extends Component {
 	constructor(props) {
 		super(props);
@@ -18,7 +18,8 @@ export default class MessageInput extends Component {
 			{
 				userId: Meteor.userId,
 				name: Meteor.user().profile.username,
-				message: message
+				message: message,
+				createAt: moment().format('MMMM Do YYYY, h:mm:ss a')
 			},
 			(err, res) => {
 				if (err) {

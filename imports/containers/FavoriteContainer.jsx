@@ -1,14 +1,14 @@
-import { Meteor } from "meteor/meteor";
-import { withTracker } from "meteor/react-meteor-data";
-import { Posts } from "../api/posts/posts";
-import UserFavoritePost from "../ui/pages/posts/UserFavoritePost";
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+import { Posts } from '../api/posts/posts';
+import UserFavoritePost from '../ui/pages/posts/UserFavoritePost';
 
 const FavoriteContainer = withTracker(({}) => {
-  Meteor.subscribe("posts.favorites");
+	Meteor.subscribe('posts.favorites');
 
-  return {
-    favoritePosts: Posts.find().fetch() || {}
-  };
+	return {
+		favoritePosts: Posts.find(selector).fetch() || {}
+	};
 })(UserFavoritePost);
 
 export default FavoriteContainer;
