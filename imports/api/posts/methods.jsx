@@ -62,3 +62,16 @@ Meteor.methods({
 		Posts.remove({ identity: identity });
 	}
 });
+
+
+Posts.allow({
+	insert() {
+		return true;
+	},
+	update() {
+		return true;
+	},
+	remove() {
+		return true;
+	}
+});

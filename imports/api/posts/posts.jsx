@@ -12,17 +12,16 @@ export const Posts = new PostsCollection('Posts');
 // 	content: { type: String },
 // 	comments: [ { username: { type: String }, comment: { type: String } } ],
 // 	hearts: { type: [ String ] }
-// });
-
+// 3
+// Posts.attachSchema(Posts.schema);
 Posts.allow({
+	insert() {
+		return true;
+	},
 	update() {
 		return true;
-	}
-});
-
-Posts.allow({
+	},
 	remove() {
 		return true;
 	}
 });
-// Posts.attachSchema(Posts.schema);

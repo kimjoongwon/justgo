@@ -13,7 +13,8 @@ export default class EditPost extends Component {
 			{
 				title: this.props.post.title,
 				description: this.props.post.description,
-				content: this.props.content
+				content: this.props.content,
+				id: this.props.post._id
 			},
 			(err, res) => {
 				if (err) {
